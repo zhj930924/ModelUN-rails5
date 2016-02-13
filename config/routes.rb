@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  get 'users/new'
+
   get 'signup' => 'users#new'
   get 'contact' => 'static_pages#contact'
   get 'about' => 'static_pages#about'
   root 'static_pages#home'
+  resources :users
   
 
   # The priority is based upon order of creation: first created -> highest priority.

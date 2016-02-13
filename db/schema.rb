@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208231207) do
+ActiveRecord::Schema.define(version: 20160208230644) do
 
   create_table "directives", force: :cascade do |t|
     t.string   "title"
@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20160208231207) do
 
   create_table "users", force: :cascade do |t|
     t.string   "real_name"
-    t.string   "committee_name"
+    t.string   "committee"
+    t.string   "position"
     t.string   "email"
     t.integer  "graduation_class"
+    t.string   "password"
     t.string   "password_digest"
     t.string   "remember_digest"
     t.boolean  "admin"
@@ -36,16 +38,5 @@ ActiveRecord::Schema.define(version: 20160208231207) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
-
-  create_table "users_directives", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "directive_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "users_directives", ["directive_id"], name: "index_users_directives_on_directive_id"
-  add_index "users_directives", ["user_id", "directive_id"], name: "index_users_directives_on_user_id_and_directive_id", unique: true
-  add_index "users_directives", ["user_id"], name: "index_users_directives_on_user_id"
 
 end
