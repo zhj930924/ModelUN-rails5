@@ -1,0 +1,8 @@
+<div class="media-body">
+    <h4 class="media-heading">
+        <%= comment.user.name %>
+        <i><%= comment.created_at.strftime('%b %d, %Y at %H:%M') %></i>
+        <p><%= simple_format comment.content %></p>
+        <%= nested_comments comment.children %>
+    </h4>
+</div>

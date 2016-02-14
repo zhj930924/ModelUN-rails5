@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214005025) do
+ActiveRecord::Schema.define(version: 20160214081031) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "ancestry"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["ancestry"], name: "index_comments_on_ancestry"
 
   create_table "directives", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +31,14 @@ ActiveRecord::Schema.define(version: 20160214005025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "directives_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "directive_id"
+    t.string  "type"
+  end
+
+  add_index "directives_users", ["user_id", "directive_id"], name: "index_directives_users_on_user_id_and_directive_id", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "real_name"
@@ -38,14 +57,5 @@ ActiveRecord::Schema.define(version: 20160214005025) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
-
-  create_table "users_directives", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "directive_id"
-  end
-
-  add_index "users_directives", ["directive_id"], name: "index_users_directives_on_directive_id"
-  add_index "users_directives", ["user_id", "directive_id"], name: "index_users_directives_on_user_id_and_directive_id", unique: true
-  add_index "users_directives", ["user_id"], name: "index_users_directives_on_user_id"
 
 end

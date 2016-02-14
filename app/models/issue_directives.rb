@@ -1,7 +1,7 @@
-class Personal_directive < Directive
+class Issue_directives < Directive
+    belongs_to :delegate
     
     # Nested comments begin
-    belongs_to :delegate
     has_ancestry
     has_comments
     has_many :comments, :as => :commentable, :dependent => :destroy
