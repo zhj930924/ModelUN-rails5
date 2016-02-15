@@ -6,6 +6,7 @@ michael:
   password_digest: <%= User.digest('password') %>
   admin: true
   activated: true
+  type: Crisis
   activated_at: <%= Time.zone.now %>
 
 archer:
@@ -15,6 +16,7 @@ archer:
   email: duchess@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
+  type: Delegate
   activated_at: <%= Time.zone.now %>
 
 lana:
@@ -24,6 +26,7 @@ lana:
   email: hands@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
+  type: Crisis
   activated_at: <%= Time.zone.now %>
 
 malory:
@@ -33,6 +36,7 @@ malory:
   email: boss@example.gov
   password_digest: <%= User.digest('password') %>
   activated: true
+  type: Crisis
   activated_at: <%= Time.zone.now %>
 
 <% 30.times do |n| %>
@@ -43,5 +47,6 @@ user_<%= n %>:
   position: <%= "rando #{n}" %>
   password_digest: <%= User.digest('password') %>
   activated: true
+  type: Delegate
   activated_at: <%= Time.zone.now %>
 <% end %>

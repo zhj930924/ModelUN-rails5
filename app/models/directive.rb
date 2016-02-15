@@ -1,21 +1,21 @@
 class Directive < ActiveRecord::Base
-    before_action :logged_in_user, only: [:create, :destroy]
-    before_action :correct_user, only: :destroy
+    # before_action :logged_in_user, only: [:create, :destroy]
+    # before_action :correct_user, only: :destroy
     
-    # Nested comments begin
-    has_ancestry
-    has_comments
-    has_many :comments, :as => :commentable, :dependent => :destroy
-    # Nested comments end
+    # # Nested comments begin This is the only one you need since other classes are inherited.
+    # has_ancestry
+    # has_comments
+    has_many :comments, as: :commentable, dependent: :destroy
+    # # Nested comments end
     
     has_and_belongs_to_many :users
     
     self.inheritance_column = :type
     validates :title, presence: true, length: { maximum: 100}
     validates :content, presence: true, length: { maximum: 1000}
-    
+
     def self.types
-        %w(Personal_directive Resolution Crisis_directive)
+        %w(PersonalDirective Resolution CrisisUpdate)
     end
 
 #   def create

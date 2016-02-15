@@ -1,9 +1,4 @@
-class Crisis_update < Directive
-    belongs_to :crisis
-    
-    # Nested comments begin
-    has_ancestry
-    has_comments
-    has_many :comments, :as => :commentable, :dependent => :destroy
-    # Nested comments end
+class CrisisUpdate < Directive
+    has_many :update_crises, :foreign_key => :directive_id
+    has_many :crises, through: :update_crises
 end

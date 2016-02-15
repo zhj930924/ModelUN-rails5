@@ -1,3 +1,17 @@
 class Resolution < Directive
-    has_and_belongs_to_many :delegates
+    has_many :sponsorships, class_name: "ResolutionRelationship",
+                            foreign_key: "directive_id",
+                            dependent: :destroy
+    has_many :sponsors, through: :sponsorship, 
+                        class_name: "Delegate",
+                        source: :delegate
+                        
+    
+    has_many :signatures, class_name: "ResolutionRelationship",
+                            foreign_key: "directive_id",
+                            dependent: :destroy
+    has_many :signers, through: :signatures, 
+                        class_name: "Delegate",
+                        source: :delegate
+                        
 end

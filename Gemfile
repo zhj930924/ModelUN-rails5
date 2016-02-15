@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+# Nested Comments:
+gem 'closure_tree', '~> 5.2.0'
+
 gem 'ancestry',     '~> 2.0.0'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'rails',        '4.2.2'
