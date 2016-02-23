@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # devise :database_authenticatable, :registerable,
+  #        :recoverable, :rememberable, :trackable, :validatable
+    
     has_and_belongs_to_many :directives
     attr_accessor :remember_token
     before_save {self.email = email.downcase}
@@ -12,7 +17,10 @@ class User < ActiveRecord::Base
     validates :graduation_class, presence: true
     has_secure_password
     validates :password, presence: true, length: { minimum: 6}, allow_nil: true
-      
+    validates :type, presence: true
+    
+    has_many :conversations, :foreign_key => :sender_id
+    
     
     def self.types
         %w(Delegate Crisis)
@@ -43,5 +51,16 @@ class User < ActiveRecord::Base
     def forget
         update_attribute(:remember_digest, nil)
     end
-  
+    
+    def crisis_update_feed
+        directive_ids = "SELECT directive_id FROM directives_users
+                        WHERE type = 'updatecrisis' and user_id = :user_id"
+        Directive.where("id IN (#{directive_ids})", user_id: id)
+    end
+    
+    def delegate_personal_directive_feed
+        directive_ids = "SELECT directive_id FROM directives_users
+                        WHERE type = 'IssueDirective' and user_id = :user_id"
+        Directive.where("id IN (#{directive_ids})", user_id: id)
+    end
 end

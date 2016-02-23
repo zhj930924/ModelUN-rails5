@@ -2,7 +2,7 @@ class Resolution < Directive
     has_many :sponsorships, class_name: "ResolutionRelationship",
                             foreign_key: "directive_id",
                             dependent: :destroy
-    has_many :sponsors, through: :sponsorship, 
+    has_many :sponsors, through: :sponsorships, 
                         class_name: "Delegate",
                         source: :delegate
                         

@@ -1,6 +1,14 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* comments */
+
+.replies {
+  margin-left: 50px;
+  
+}
+
+
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
@@ -242,7 +250,7 @@ input {
 
 /* microposts */
 
-.microposts {
+.directives {
   list-style: none;
   padding: 0;
   li {

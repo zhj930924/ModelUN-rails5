@@ -1,15 +1,10 @@
 class Directive < ActiveRecord::Base
     # before_action :logged_in_user, only: [:create, :destroy]
     # before_action :correct_user, only: :destroy
-    
-    # # Nested comments begin This is the only one you need since other classes are inherited.
-    # has_ancestry
-    # has_comments
-    has_many :comments, as: :commentable, dependent: :destroy
-    # # Nested comments end
-    
+    default_scope -> { order(created_at: :desc) }
+    mount_uploader :picture, PictureUploader
     has_and_belongs_to_many :users
-    
+    has_many :comments
     self.inheritance_column = :type
     validates :title, presence: true, length: { maximum: 100}
     validates :content, presence: true, length: { maximum: 1000}
@@ -18,22 +13,22 @@ class Directive < ActiveRecord::Base
         %w(PersonalDirective Resolution CrisisUpdate)
     end
 
-#   def create
-#     @directive = current_users.build(micropost_params)
-#     if @micropost.save
-#       flash[:success] = "#{self.types} created!"
-#       redirect_to root_url
-#     else
-#       @feed_items = []
-#       render 'static_pages/home'
-#     end
-#   end
-  
-#   def destroy
-#     @micropost.destroy
-#     flash[:success] = "Micropost deleted"
-#     redirect_to request.referrer || root_url
-#   end
+    def create
+        @directive = current_user.directives.build(directive_params)
+        if @directive.save
+            flash[:success] = "Directive created!"
+            redirect_to root_url
+        else
+            @feed_items = []
+            render 'static_pages/home'
+        end
+    end
+    
+  def destroy
+    @directive.destroy
+    flash[:success] = "Directive deleted"
+    redirect_to root_url #redirecting to root for now. 
+  end
   
 #   private
 

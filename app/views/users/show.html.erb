@@ -8,5 +8,15 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+  <% if @user.personal_directives.any? %>
+    <h3>Personal Directives (<%= @user.personal_directives.count %>)</h3>
+    <ol class="directives">
+      <%= render partial: "shared/feed", collection: @feed_items %>
+    </ol>
+    <%= will_paginate @feed_items %>
+  <% end %>
+  </div>
 </div>
+
 

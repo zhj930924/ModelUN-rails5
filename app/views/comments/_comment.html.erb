@@ -1,8 +1,18 @@
-<div class="media-body">
-    <h4 class="media-heading">
-        <%= comment.user.name %>
-        <i><%= comment.created_at.strftime('%b %d, %Y at %H:%M') %></i>
-        <p><%= simple_format comment.content %></p>
-        <%= nested_comments comment.children %>
-    </h4>
+<div class = "reply">
+  <% if !comment.nil? %>
+  <span>
+    <p><%= comment.content %></p>
+    <% from_reply_form ||= nil %>
+    <% unless from_reply_form %>
+      <p><%= link_to 'reply', new_comment_path(comment.id) %></p>
+    <% end %>
+  <small class="text-muted"> Replied on
+  <%= comment.created_at %></small>
+  <% else %>
+  <span><p><%= link_to 'reply', directive.comments.new %></p></span>
+  <% end %>
+
+  </span>
 </div>
+
+<!--NEED CSS SHEET HERE-->

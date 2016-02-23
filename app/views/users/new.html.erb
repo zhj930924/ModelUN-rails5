@@ -18,6 +18,9 @@
       <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
       
+      <%= f.label :type %>
+      <%= f.select :type, options_for_select(["Crisis", "Delegate"]), class: 'form-control' %>
+      
       <%= f.label :graduation_class %>
       <%= f.number_field :graduation_class, class: 'form-control' %>
 

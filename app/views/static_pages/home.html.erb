@@ -1,3 +1,45 @@
+<% if logged_in? %>
+  <% @user = current_user %>
+  <% if current_user[:type] == "Delegate" %>
+    <div class="row">
+      <aside class="col-md-2">
+        <section class="user_info">
+          <%= render 'shared/user_info' %>
+        </section>
+      </aside>
+      <div class="col-md-5">
+        <h3>Crisis Updates</h3>
+        <span>new crisis</span>
+        <%= render "shared/feed" %>
+      </div>
+      <div class="col-md-5">
+        <h3>Committee Directives</h3>
+        <%= render "shared/secondary_feed" %>
+      </div>
+    </div>
+  <% elsif current_user[:type] == 'Crisis'%>
+    <div class="row">
+      <aside class="col-md-2">
+        <section class="user_info">
+          <%= render 'shared/user_info' %>
+        </section>
+      </aside>
+      <div class="col-md-5">
+        <h3>Personal Directives</h3>
+        <span>new crisis</span>
+        <%= render "shared/feed" %>
+      </div>
+      <div class="col-md-5">
+        <h3>Resolution</h3>
+        <%= render "shared/secondary_feed" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="center jumbotron">
+      <h1>I'm Sorry, But Do I Know You?</h1>
+    </div>
+  <% end %>
+<% else %>
 <% provide(:title, "Home") %>
   <div class="center jumbotron">
     <h1>Welcome to EMUN</h1>
@@ -11,3 +53,4 @@
   
   <%= link_to image_tag("mun_logo.png", alt: "emodelun", size: "57x50"),
               'http://www.emodelun.com' %>
+<% end %>

@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'devise', '~> 3.5', '>= 3.5.6'
+gem 'private_pub'
+gem 'thin'
+gem 'faye', '~> 1.1', '>= 1.1.2'
 # Nested Comments:
 gem 'closure_tree', '~> 5.2.0'
-
-gem 'ancestry',     '~> 2.0.0'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'rails',        '4.2.2'
 gem 'bcrypt',       '~> 3.1.2'
@@ -20,6 +22,10 @@ gem 'jquery-rails', '4.0.3'
 gem 'turbolinks',   '2.3.0'
 gem 'jbuilder',     '2.2.3'
 gem 'sdoc',         '0.4.0', group: :doc
+gem 'omniauth-google-oauth2'
+gem 'figaro'
+gem 'omniauth'
+gem 'chatty', '~> 0.0.6'
 
 group :development, :test do
   gem 'sqlite3',     '1.3.9'
@@ -27,16 +33,30 @@ group :development, :test do
   gem 'web-console', '2.0.0.beta3'
   gem 'spring',      '1.1.3'
   gem "rails-erd"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'guard-rspec', require: false
+  gem 'pry'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'simplecov'
+
 end
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
   gem 'guard-minitest',     '2.3.1'
+  gem 'shoulda-matchers'
 end
 
 group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
   gem 'puma',           '2.11.1'
+  gem 'google-analytics-rails'
+
 end

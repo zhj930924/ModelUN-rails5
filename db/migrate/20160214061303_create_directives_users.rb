@@ -1,6 +1,6 @@
 class CreateDirectivesUsers < ActiveRecord::Migration
   def change
-    create_table :directives_users do |t|
+    create_table :directives_users, id: false do |t|
       t.belongs_to :user
       t.belongs_to :directive
       t.string :type

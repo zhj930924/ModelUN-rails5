@@ -5,14 +5,22 @@ class UsersController < ApplicationController
 #     flash[:success] = "User deleted"
 #     redirect_to users_url
 #   end
+
   
-#   def index
-#     @users = User.paginate(page: params[:page])
-#   end
+  def index
+    @users = User.where.not("id = ?",current_user.id).order("created_at DESC")
+    @conversations = Conversation.involving(current_user).order("created_at DESC")
+    if (current_user[:type] == "Delegate")
+      @feed_items = current_user.personal_directives.paginate(page: params[:page])
+    elsif(current_user[:type] == "Crisis")
+      @feed_items = current_user.crisis_updates.paginate(page: params[:page])
+    end
+  end
   
   def new
     @user = User.new
   end
+
   
   def create
     @user = User.new(user_params)
@@ -29,10 +37,19 @@ class UsersController < ApplicationController
 #   def edit
 #   end
   
+  def delegate_personal_directive
+    PersonalDirective.where("user_id IN (?) OR user_id = ?")
+  end
+  
   def show
     @user = User.find(params[:id])
-    # @microposts = @user.microposts.paginate(page: params[:page])
+    if @user[:type] == "Crisis"
+      @feed_items = Resolution.all.paginate(page: params[:page])
+    elsif @user[:type] == "Delegate"
+      @feed_items = @user.personal_directives.paginate(page: params[:page])
+    end
   end
+  
   
 #   def update
 #     if @user.update_attributes(user_params)
@@ -45,7 +62,7 @@ class UsersController < ApplicationController
 
   private
     def user_params
-      params.require(:user).permit(:real_name, :email, :password, :password_confirmation, :committee, :position, :graduation_class)
+      params.require(:user).permit(:real_name, :email, :password, :type, :password_confirmation, :committee, :position, :graduation_class)
     end
     
 #     # Before filters
@@ -60,6 +77,4 @@ class UsersController < ApplicationController
 #       redirect_to(root_url) unless current_user.admin?
 #     end
 # end
-
-  
 end
