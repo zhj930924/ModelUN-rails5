@@ -1,5 +1,4 @@
-<% if logged_in? %>
-  <% @user = current_user %>
+<% if user_signed_in? %>
   <% if current_user[:type] == "Delegate" %>
     <div class="row">
       <aside class="col-md-2">
@@ -9,12 +8,12 @@
       </aside>
       <div class="col-md-5">
         <h3>Crisis Updates</h3>
-        <span>new crisis</span>
-        <%= render "shared/feed" %>
+        <%= render "shared/cs_feed" %>
       </div>
       <div class="col-md-5">
-        <h3>Committee Directives</h3>
-        <%= render "shared/secondary_feed" %>
+        <h3>Personal Directives</h3>
+        <span><%= link_to "new personal directives", personal_directives_path %></span>
+        <%= render "shared/pd_feed" %>
       </div>
     </div>
   <% elsif current_user[:type] == 'Crisis'%>
@@ -26,12 +25,11 @@
       </aside>
       <div class="col-md-5">
         <h3>Personal Directives</h3>
-        <span>new crisis</span>
-        <%= render "shared/feed" %>
+        <%= render "shared/pd_feed" %>
       </div>
       <div class="col-md-5">
         <h3>Resolution</h3>
-        <%= render "shared/secondary_feed" %>
+        <%= render "shared/rs_feed" %>
       </div>
     </div>
   <% else %>
@@ -48,7 +46,7 @@
       Please log in or sign up to access your personal pages
     </h2>
   
-    <%= link_to "Sign up now!", signup_path , class: "btn btn-lg btn-primary" %>
+    <%= link_to "Sign up now!", new_user_registration_path , class: "btn btn-lg btn-primary" %>
   </div>
   
   <%= link_to image_tag("mun_logo.png", alt: "emodelun", size: "57x50"),

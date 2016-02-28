@@ -6,4 +6,7 @@ class Comment < ActiveRecord::Base
     def to_graph_label
         title
     end
+
+# define ActiveRecord scopes for
+# :search_query, :sorted_by, :with_country_id, and :with_created_at_gte
 end

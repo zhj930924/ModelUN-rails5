@@ -1,0 +1,71 @@
+<li id="directive-<%= directive.id %>">
+  <span>
+    <b>Creators:</b> 
+    <% directive.creators.each do |creator| %>
+    <%= creator.position %>
+    <% end %>
+    <br>
+    <b>Sponsors:</b> 
+    <% directive.sponsors.each do |sponsor| %>
+    <%= sponsor.position %>
+    <% end %> 
+    <%= render partial: "shared/sponsor_form", locals: {directive_id: directive.id} if current_user[:type] == "Delegate" %>
+    <br>
+    <b>Signers:</b> 
+    <% directive.signers.each do |signer| %>
+    <%= signer.position %>
+    <% end %>
+    <%= render partial: "shared/sign_form", locals: {directive_id: directive.id} if current_user[:type] == "Delegate" %>
+    <br>
+    <% if directive.creators.include?(current_user) %>
+    <%= link_to "resolution management", 
+        :controller => "static_pages", 
+        :action => "resolution_management", 
+        :directive_id => directive.id %>
+    <% end %>
+  </span>
+  <span class= "content">
+    <b>Title:</b> <br>
+    <%= directive.title %>
+  </span>
+  <span class="content">
+    <b>Content:</b> <br>
+    <%= directive.content %>
+    <%= image_tag directive.picture.url if directive.picture? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= directive.created_at %>.
+    <% if current_user[:type] == "Crisis" || directive.creators.include?(current_user) %>
+    
+      <%= link_to "delete", directive, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+      <%= link_to "edit", 
+                        :controller => "directives",
+                        :action => "edit",
+                        :id => directive.id %>
+    <% end %>
+      
+  <%= link_to "reply", 
+        :controller => "comments", 
+        :action => "new", 
+        :directive_id => directive.id %>
+  </span>
+
+    
+      
+  </span>
+  <% if current_user[:type] == "Crisis" %>
+    <span>
+        <% directive.tags.each do |tag| %>
+            #<%= tag.tag %>  
+        <% end %>
+    </span>
+  
+    <span>
+      <%= link_to "new tags", 
+            :controller => "tags", 
+            :action => "new", 
+            :directive_id => directive.id %>
+    </span>
+  <% end %>
+</li>

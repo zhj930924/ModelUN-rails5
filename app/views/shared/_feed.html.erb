@@ -1,6 +1,6 @@
 <% if @feed_items.any? %>
   <ol class="directives">
-    <%= render partial: "directives/directives", collection: @feed_items, as: 'directive' %>
+    <%= render partial: "directives/notes", collection: @feed_items, as: 'directive' %>
   </ol>
-  <%= will_paginate @feed_items %>
+  <%= will_paginate @feed_items, :param_name => 'page' %>
 <% end %>

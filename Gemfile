@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
 
+gem 'filterrific'
+gem 'chosen-rails'
+gem 'mailboxer'
 gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'private_pub'
 gem 'thin'
 gem 'faye', '~> 1.1', '>= 1.1.2'
+gem 'chosen-rails'
 # Nested Comments:
 gem 'closure_tree', '~> 5.2.0'
 gem 'bootstrap-sass',       '3.2.0.0'
@@ -56,7 +60,6 @@ end
 group :production do
   gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
-  gem 'puma',           '2.11.1'
   gem 'google-analytics-rails'
 
 end

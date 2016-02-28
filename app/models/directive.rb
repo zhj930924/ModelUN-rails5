@@ -6,39 +6,72 @@ class Directive < ActiveRecord::Base
     has_and_belongs_to_many :users
     has_many :comments
     self.inheritance_column = :type
+    
     validates :title, presence: true, length: { maximum: 100}
     validates :content, presence: true, length: { maximum: 1000}
-
+    validates :type, presence: true
+    
+    has_many :directives_tags
+    has_many :tags, through: :directives_tags
+    
     def self.types
         %w(PersonalDirective Resolution CrisisUpdate)
     end
-
-    def create
-        @directive = current_user.directives.build(directive_params)
-        if @directive.save
-            flash[:success] = "Directive created!"
-            redirect_to root_url
-        else
-            @feed_items = []
-            render 'static_pages/home'
-        end
-    end
     
-  def destroy
-    @directive.destroy
-    flash[:success] = "Directive deleted"
-    redirect_to root_url #redirecting to root for now. 
-  end
-  
-#   private
-
-#     def micropost_params
-#       params.require(:micropost).permit(:content, :picture)
-#     end
-
-#     def correct_user
-#       @micropost = current_user.microposts.find_by(id: params[:id])
-#       redirect_to root_url if @micropost.nil?
-#     end
+    #Identification of Filterrific for Directive class    
+    filterrific(
+        available_filters: [
+            :search_query,
+            :with_tag_name,
+            :with_user,
+            :with_directive_type
+        ]
+    )
     
+    #Scope definitions
+        
+    scope :search_query, lambda { |query|
+      # Searches the students table on the 'first_name' and 'last_name' columns.
+      # Matches using LIKE, automatically appends '%' to each term.
+      # LIKE is case INsensitive with MySQL, however it is case
+      # sensitive with PostGreSQL. To make it work in both worlds,
+      # we downcase everything.
+      return nil  if query.blank?
+    
+      # condition query, parse into individual keywords
+      terms = query.downcase.split(/\s+/)
+    
+      # replace "*" with "%" for wildcard searches,
+      # append '%', remove duplicate '%'s
+      terms = terms.map { |e|
+        (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+      }
+      # configure number of OR conditions for provision
+      # of interpolation arguments. Adjust this if you
+      # change the number of OR conditions.
+      num_or_conds = 2
+      where(
+        terms.map { |term|
+          "(LOWER(directives.content) LIKE ? OR LOWER(directives.title) LIKE ?)"
+        }.join(' AND '),
+        *terms.map { |e| [e] * num_or_conds }.flatten
+      )
+    }
+    
+
+    scope :with_tag_name, lambda { |tag_id|
+      where(tags: {id: tag_id}).joins(:tags)
+    }
+    
+    scope :with_user, lambda { |user_id|
+      where(users: {id: user_id}).joins(:users)
+    }
+    
+    scope :with_directive_type, lambda { |type|
+      where(directives: {type: type})
+    }
+    
+
+    
+
 end

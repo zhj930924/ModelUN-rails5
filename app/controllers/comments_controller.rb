@@ -1,6 +1,16 @@
 class CommentsController < ApplicationController
   def index
     @comments = Comment.hash_tree
+    @filterrific = initialize_filterrific(
+      Comment,
+      params[:filterrific]
+    ) or return
+    @comments = @filterrific.find.page(params[:page])
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new

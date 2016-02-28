@@ -1,0 +1,26 @@
+<% if user_signed_in? && !@user.nil? %>
+    <% provide(:title, @user.position) %>
+    <% @user = current_user %>
+    <div class="row">
+      <aside class="col-md-4">
+        <section class="user_info">
+            <%= render 'shared/user_info' %>
+        </section>
+      <% if current_user[:type] == "Delegate" %>
+        <h4>New Committee Directives</h4>
+        <span>
+            <%= render 'directives/form' %>
+        </span>
+      <% end %>
+      </aside>
+      <div class="col-md-8">
+      <% if @rs_feed.any? %>
+        <h3>Resolutions/Committee Directives(<%= @rs_feed.count %>)</h3>
+        <ol class="directives">
+          <%= render "shared/rs_feed" %>
+        </ol>
+      <% end %>
+      </div>
+    </div>
+<% end %>
+

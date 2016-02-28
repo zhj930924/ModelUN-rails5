@@ -1,22 +1,25 @@
-<% if logged_in? && !@user.nil?%>
-    <% provide(:title, @user.real_name) %>
+<% if user_signed_in? && !@user.nil? %>
+    <% provide(:title, @user.position) %>
     <% @user = current_user %>
     <div class="row">
       <aside class="col-md-4">
         <section class="user_info">
             <%= render 'shared/user_info' %>
         </section>
+      <% if current_user[:type] == "Delegate" %>
+        <h4>New Personal Directives</h4>
         <span>
             <%= render 'directives/form' %>
         </span>
+      <% end %>
       </aside>
       <div class="col-md-8">
-      <% if @user.personal_directives.any? %>
-        <h3>Personal Directives (<%= @user.personal_directives.count %>)</h3>
-        <ol class="directives">
-          <%= render "shared/feed" %>
-        </ol>
-      <% end %>
+        <% if @pd_feed.any? %>
+          <h3>Personal Directives (<%= @pd_feed.count %>)</h3>
+          <ol class="directives">
+            <%= render "shared/pd_feed" %>
+          </ol>
+        <% end %>
       </div>
     </div>
 <% end %>

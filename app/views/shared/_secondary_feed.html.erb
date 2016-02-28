@@ -1,6 +1,0 @@
-<% if @secondary_feed.any? %>
-  <ol class="directives">
-    <%= render partial: "directives/directives", collection: @secondary_feed, as: 'directive' %>
-  </ol>
-  <%= will_paginate @secondary_feed %>
-<% end %>

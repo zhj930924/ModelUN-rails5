@@ -1,19 +1,54 @@
 Rails.application.routes.draw do
+  # devise_for :users do 
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
 
-  get 'sessions/new'
-  get 'all' => 'users#index'
-  get 'users/new'
-  get 'signup' => 'users#new'
+  # , :controllers => { registrations: 'registrations' }
+    
+  #devise_scope :user do
+    
+  #  authenticated :user do
+  #    get "dashboard" => "users#show"
+  #  end
+  
+  #  unauthenticated :user do
+  #    root to: "static_pages#home"
+  #  end
+  
+  # end
+  devise_for :users
+  root to: "static_pages#home"
+  # mailbox folder routes
+  get "mailbox/inbox" => "mailbox#inbox", as: :mailbox_inbox
+  get "mailbox/sent" => "mailbox#sent", as: :mailbox_sent
+  get "mailbox/trash" => "mailbox#trash", as: :mailbox_trash
+  # get "sort" => "users#index", as: :users_path
+  # conversations
+  resources :conversations do
+    member do
+      post :reply
+      post :trash
+      post :untrash
+    end
+  end
+  
+  # get 'sessions/new'
+  # get 'users/new'
+  # get 'signup' => 'users#new'
+  # root to: "static_pages#home"
+  # get 'login' => 'sessions#new'
+  # post 'login' => 'sessions#create'
+  # get 'chat' => 'users#index'
+  
   get 'contact' => 'static_pages#contact'
   get 'about' => 'static_pages#about'
-  root to: "static_pages#home"
-  get 'login' => 'sessions#new'
-  post 'login' => 'sessions#create'
-  delete 'logout' => 'sessions#destroy'
-  get 'chat' => 'users#index'
+  get 'user/all' => 'users#index'
   get "personal_directives" => 'static_pages#personal_directives'
-  get 'committee_directives' => 'static_pages#committee_directives'
-  get 'crisis_updates' => 'static_pages#crisis_updates'
+  get "notes" => 'static_pages#notes'
+  get "resolutions" => 'static_pages#resolutions'
+  get "crisis_updates" => 'static_pages#crisis_updates'
+  get 'resolution_management' => 'static_pages#resolution_management'
+
   
   resources :users
   resources :crises, :controller => "users", :type => "Crisis"
@@ -22,30 +57,67 @@ Rails.application.routes.draw do
   resources :comments, only: [:index, :create]
   get '/comments/new/(:parent_id)', to: 'comments#new', as: :new_comment
   
+  resources :directives
+  resources :personal_directives,  :controller => "personal_directives"
+  resources :resolutions, :controller => "resolutions"
+  resources :crisis_updates, :controller => "crisis_updates"
+  resources :notes, :controller => "notes", only: [:create, :destroy]
+  resources :tags
+  resources :directives_tags
+  resources :resolution_sponsorships, only: [:create, :destroy]
+  resources :resolution_signings, only: [:create, :destroy]
+  #root to: "static_pages#home"
   
-  resources :directives, only: [:create, :destroy]
-  resources :personal_directives, :controller => "directives", :type => "PersonalDirective"
-  resources :resolutions, :controller => "directives", :type => "Resolution"
-  resources :crisis_updates, :controller => "directives", :type => "CrisisUpdate"
-  
-  devise_for :users
 
-#  authenticated :user do
-#    get 'all' => 'users#index'
+# Tutorial: Authentication :: Override default setup = devise_for :users
+#  # http://iampedantic.com/post/41170460234/fully-customizing-devise-routes
+#  devise_for :users, skip: [:sessions, :passwords, :confirmations, :registrations, :unlocks]
+#  devise_scope :user do
+#
+#    # authentication
+#    unauthenticated :user do
+#      root to: 'users/sessions#new', as: 'new_user_session'
+#    end
+#    authenticated :user do
+#      root to: 'dashboard#index'
+#    end
+
+#    post '/login', to: 'users/sessions#create', as: 'user_session'
+#   get '/logout', to: 'users/sessions#destroy', as: 'destroy_user_session'
+#
+#    # registrations
+#    get '/join', to: 'users/registrations#new', as: 'new_user_registration'
+#    post '/join', to: 'users/registrations#create', as: 'user_registration'
+
+#    # user accounts
+#    scope '/account' do
+#      # confirmation
+#      get '/verification', to: 'users/confirmations#verification_sent', as: 'user_verification_sent'
+#      get '/confirm', to: 'users/confirmations#show', as: 'user_confirmation'
+#      get '/confirm/resend', to: 'users/confirmations#new', as: 'new_user_confirmation'
+#      post '/confirm', to: 'users/confirmations#create'
+
+#      # passwords
+#      get '/reset-password', to: 'users/passwords#new', as: 'new_user_password'
+#      get '/reset-password/change', to: 'users/passwords#edit', as: 'edit_user_password'
+#      put  '/reset-password', to: 'users/passwords#update', as: 'user_password'
+#      post '/reset-password', to: 'users/passwords#create'
+
+#      # unlocks
+#      post '/unlock', to: 'users/unlocks#create', as: 'user_unlock'
+#      get '/unlock/new', to: 'users/unlocks#new', as: 'new_user_unlock'
+#      get '/unlock', to: 'users/unlocks#show'
+
+#      # settings & cancellation
+#      # get '/cancel', to: 'users/registrations#cancel', as: 'cancel_user_registration'
+#      # get '/settings', to: 'users/registrations#edit', as: 'edit_user_registration'
+#      # put '/settings', to: 'users/registrations#update'
+#      # account deletion
+#      # delete '', to: 'users/registrations#destroy'
+#    end
 #  end
 
-  unauthenticated :user do
-    devise_scope :user do
-      get "/" => "devise/sessions#new"
-    end
-  end
 
-  resources :conversations do
-    resources :messages
-  end
-
-  
-  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
