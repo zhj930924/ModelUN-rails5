@@ -7,8 +7,6 @@ gem 'devise', '~> 3.5', '>= 3.5.6'
 gem 'private_pub'
 gem 'thin'
 gem 'faye', '~> 1.1', '>= 1.1.2'
-gem 'chosen-rails'
-# Nested Comments:
 gem 'closure_tree', '~> 5.2.0'
 gem 'bootstrap-sass',       '3.2.0.0'
 gem 'rails',        '4.2.2'
@@ -29,6 +27,7 @@ gem 'sdoc',         '0.4.0', group: :doc
 gem 'omniauth-google-oauth2'
 gem 'figaro'
 gem 'omniauth'
+gem 'puma'
 gem 'chatty', '~> 0.0.6'
 
 group :development, :test do
@@ -47,6 +46,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov'
+  
 
 end
 
