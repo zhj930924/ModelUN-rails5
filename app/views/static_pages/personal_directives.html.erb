@@ -14,6 +14,19 @@
       <% end %>
       </aside>
       <div class="col-md-8">
+        <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
+            <div>
+              Search
+              <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+              <%= f.text_field(
+                      :search_query,
+                  ) %>
+            </div>
+
+            <%= f.submit "submit" %>
+
+        <% end %>
+
         <% if @pd_feed.any? %>
           <h3>Personal Directives (<%= @pd_feed.count %>)</h3>
           <ol class="directives">

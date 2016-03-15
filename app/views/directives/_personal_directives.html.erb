@@ -1,22 +1,40 @@
 <li id="directive-<%= directive.id %>">
-  <span class="user">
-      <% directive.users.each do |user| %> 
-          <%= user.position %>
-      <% end %>
+  <span class="content">
+    <b>Author: </b>
+    <% directive.users.each do |user| %>
+    <%= user.position %>
+    <% end %>
   </span>
+
   <span class= "content">
-    <b>Title:</b> <br>
+    <b>Created: </b>
+    <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
+  </span>
+  <% if current_user[:type] == "Crisis" %>
+    <span class = "content">
+      <b>Tags: </b>
+      <% directive.tags.each do |tag| %>
+            #<%= tag.tag %>
+      <% end %>
+      <%= link_to "new tags",
+                  :controller => "tags",
+                  :action => "new",
+                  :directive_id => directive.id %>
+    </span>
+  <% end %>
+  <span class= "content">
+    <b>Title: </b>
     <%= directive.title %>
   </span>
-  <span class="content">
-    <b>Content:</b> <br>
-    <%= directive.content %>
+  <span class= "content">
+    <b>Content: </b><br>
+    <%= render inline: directive.content %>
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
-  <span class="timestamp">
-    Posted <%= directive.created_at %>.
-    <% if current_user[:type] == "Crisis" || directive.users.include?(current_user)%>
-      
+  <span class= "content">
+    <% if (current_user[:type] == "Crisis" || directive.users.include?(current_user)) && directive[:editable] == true &&
+       !directive.comments.any? %>
+      <b>Avaliable Actions: </b>
       <%= link_to "delete", directive, method: :delete,
                                        data: { confirm: "You sure?" } %>
       <%= link_to "edit", 
@@ -24,28 +42,16 @@
                         :action => "edit",
                         :id => directive.id %>
     <% end %>
-    
-      <%= link_to "reply", 
-            :controller => "comments", 
-            :action => "new", 
-            :directive_id => directive.id %>
+
 
   </span>
-  <% if current_user[:type] == "Crisis" %>
-    <span>
-        <% directive.tags.each do |tag| %>
-            #<%= tag.tag %>  
-        <% end %>
-    </span>
-  
-    <span>
-      <%= link_to "new tags", 
-            :controller => "tags", 
-            :action => "new", 
-            :directive_id => directive.id %>
-    </span>
-  <% end %>
-  <span>
+  <span class="content">
+    <br>
+    <b>Replies </b> (<%= link_to "new reply",
+                :controller => "comments",
+                :action => "new",
+                :directive_id => directive.id %>):
     <%= comments_tree_for directive.comments.hash_tree %>
   </span>
 </li>
+<hr>

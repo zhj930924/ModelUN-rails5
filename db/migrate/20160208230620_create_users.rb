@@ -5,7 +5,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :committee
       t.string :position
       t.string :email
-      t.integer :graduation_class
       t.string :remember_token
       t.boolean :admin 
       t.string :type 

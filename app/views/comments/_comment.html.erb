@@ -3,13 +3,15 @@
   <span>
     <p><%= comment.content %></p>
     <% from_reply_form ||= nil %>
+
+  <p class="content"> Replied on
+    <%= I18n.l comment.created_at.in_time_zone, :format => :short %>
     <% unless from_reply_form %>
-      <p><%= link_to 'reply', new_comment_path(comment.id) %></p>
+        <%= link_to 'reply', new_comment_path(comment.id) %>
     <% end %>
-  <small class="text-muted"> Replied on
-  <%= comment.created_at %></small>
+  </p>
   <% else %>
-  <span><p><%= link_to 'reply', directive.comments.new %></p></span>
+  <span><p class="content"><%= link_to 'reply', directive.comments.new %></p></span>
   <% end %>
 
   </span>

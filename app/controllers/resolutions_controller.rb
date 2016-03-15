@@ -11,8 +11,8 @@ class ResolutionsController < DirectivesController
       render 'static_pages/resolutions'
     end
   end
-    
-    private 
+
+    private
         def directive_params
             params.require(:resolutions).permit(:content, :picture, :title, :type)
         end

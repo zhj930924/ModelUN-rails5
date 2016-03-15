@@ -1,11 +1,12 @@
 <li id="directive-<%= directive.id %>">
-  <span class="user">
-      <% directive.users.each do |user| %> 
-      <%= link_to user.name, user %>
-      <% end %>
+  <span class="content">
+    <b>Author:</b>
+    <% directive.users.each do |user| %>
+    <%= link_to user.name, user %>
+    <% end %>
   </span>
   <span class= "content">
-    <b>Title:</b> <br>
+    <b>Title:</b>
     <%= directive.title %>
   </span>
   <span class="content">

@@ -36,8 +36,9 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.string   "title"
     t.text     "content"
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "editable",   default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "picture"
   end
 
@@ -125,7 +126,6 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.string   "committee"
     t.string   "position"
     t.string   "email"
-    t.integer  "graduation_class"
     t.string   "remember_token"
     t.boolean  "admin"
     t.string   "type"

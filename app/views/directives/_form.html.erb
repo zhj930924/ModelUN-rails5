@@ -6,7 +6,8 @@
   </div>
   <div class="field">
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :class => "tinymce" %>
+    <%= tinymce %>
   </div>
   <%= f.submit "Submit", class: "btn-xs" %>
   <span class="picture">

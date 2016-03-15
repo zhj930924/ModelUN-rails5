@@ -4,7 +4,9 @@ class CreateDirectives < ActiveRecord::Migration
         t.string :title
         t.text   :content
         t.string :type
+        t.boolean :editable, default: true
         t.timestamps null: false
+
     end
   end
 end

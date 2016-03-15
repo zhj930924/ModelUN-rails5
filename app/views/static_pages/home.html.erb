@@ -8,11 +8,13 @@
       </aside>
       <div class="col-md-5">
         <h3>Crisis Updates</h3>
+        <hr>
         <%= render "shared/cs_feed" %>
       </div>
       <div class="col-md-5">
-        <h3>Personal Directives</h3>
-        <span><%= link_to "new personal directives", personal_directives_path %></span>
+        <h3>Personal Directives(Crisis Notes)</h3>
+        <%= link_to "new personal directives", personal_directives_path %>
+        <hr>
         <%= render "shared/pd_feed" %>
       </div>
     </div>
@@ -24,7 +26,7 @@
         </section>
       </aside>
       <div class="col-md-5">
-        <h3>Personal Directives</h3>
+        <h3>Personal Directives/Crisis Notes</h3>
         <%= render "shared/pd_feed" %>
       </div>
       <div class="col-md-5">
@@ -43,10 +45,13 @@
     <h1>Welcome to EMUN</h1>
   
     <h2>
-      Please log in or sign up to access your personal pages
+      Model UN Made Easy
     </h2>
   
     <%= link_to "Sign up now!", new_user_registration_path , class: "btn btn-lg btn-primary" %>
+    <br>
+    <%= link_to "Log in", new_user_session_path %>
+
   </div>
   
   <%= link_to image_tag("mun_logo.png", alt: "emodelun", size: "57x50"),

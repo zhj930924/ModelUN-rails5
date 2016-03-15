@@ -10,7 +10,7 @@
   </span>
   <span class="content">
     <b>Content:</b> <br>
-    <%= directive.content %>
+    <%= render inline: directive.content %>
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
   <span class="timestamp">

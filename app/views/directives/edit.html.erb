@@ -1,4 +1,4 @@
-<h2>Directive Editing</h2>
+<h2><%= @directive.type %> Editing</h2>
 <div class="row">
     <%= form_for(@directive) do |f| %>
       
@@ -9,7 +9,8 @@
     
       <div class="field">
         <%= f.label :content %><br />
-        <%= f.text_area :content, :value => @directive.content %>
+        <%= f.text_area :content, :value => @directive.content, :class => "tinymce" %>
+        <%= tinymce %>
       </div>
     
       <div class="actions">

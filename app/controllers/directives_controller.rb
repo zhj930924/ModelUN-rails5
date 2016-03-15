@@ -53,16 +53,12 @@ class DirectivesController < ApplicationController
     
   end
 
-  
   private
-    def directive_params
-      params.require(:directive).permit(:content, :picture, :title, :type)
-    end
-    
-    def correct_user
-      @directive = current_user.directives.find_by(id: params[:id])
-      redirect_to root_url if @directive.nil?
-    end
-    
+      def directive_params
+          params.require(:resolutions).permit(:content, :picture, :title, :type)
+      end
+
+  
+
     
 end

@@ -30,11 +30,6 @@
         <%= f.select :type, options_for_select(["Crisis", "Delegate"]), class: 'form-control' %>
       </div>
       
-      <div class="form-group">
-        <%= f.label :graduation_class %>
-        <%= f.number_field :graduation_class, class: 'form-control' %>
-      </div>
-      
       <div class="field">
         <%= f.label :password %>
         <% if @minimum_password_length %>
@@ -47,7 +42,7 @@
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
       </div>
-      
+      <br>
       <div class="actions">
         <%= f.submit "Create my account", class: "btn btn-primary" %>
       </div>

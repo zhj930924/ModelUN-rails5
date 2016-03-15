@@ -10,7 +10,7 @@ class Directive < ActiveRecord::Base
     validates :title, presence: true, length: { maximum: 100}
     validates :content, presence: true, length: { maximum: 1000}
     validates :type, presence: true
-    
+
     has_many :directives_tags
     has_many :tags, through: :directives_tags
     
