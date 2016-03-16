@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.text     "content"
     t.string   "type"
     t.boolean  "editable",   default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.boolean  "public",     default: false
+    t.boolean  "passed",     default: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "picture"
   end
 

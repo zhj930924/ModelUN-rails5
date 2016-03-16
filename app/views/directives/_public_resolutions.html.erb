@@ -1,0 +1,139 @@
+<li id="directive-<%= directive.id %>">
+  <span class = "content">
+    <% @directive = directive %>
+
+    <b>Status<%= link_to "(make private)", directive_path(@directive, :directive => {:public => false}),
+                             :method => :put,
+                             :confirm => "Are you sure?" if directive.creators.include?(current_user) %>:</b>
+            <% if directive[:passed] %>
+                Passed!
+            <% elsif !directive[:passed] %>
+                Failed :(
+            <% else !directive[:public] %>
+                On the Floor
+    <% end %>
+    <br>
+    <b>Creators:</b>
+    <% directive.creators.each do |creator| %>
+    <%= creator.position %>
+    <% end %>
+    <br>
+    <% unless directive.creators.include?(current_user) %>
+  <div id="follow_form">
+    <% if directive.requestors.include?(current_user) %>
+        <%= form_for(directive.requests.find_by(user_id: current_user[:id]),
+                     html: { id: "unrequest_form", method: :delete }, remote: true) do |f| %>
+            <%= hidden_field_tag :user_id, current_user[:id] %>
+            <%= hidden_field_tag :directive_id, directive[:id] %>
+            <b>Sponsors</b>(<%= link_to 'unrequest sponsorship', "#", :onclick => "$('#unrequest_form').submit()" %>):
+            <% directive.sponsors.each do |sponsor| %>
+                <%= sponsor.position %>
+            <% end %>
+        <% end %>
+    <% elsif !directive.requestors.include?(current_user) %>
+        <%= form_for(directive.requests.build, remote: true, html: { id: "request_form"}) do |f| %>
+            <%= hidden_field_tag :user_id, current_user[:id] %>
+            <%= hidden_field_tag :directive_id, directive[:id] %>
+            <b>Sponsors</b>(<%= link_to 'request sponsorship', "#", :onclick => "$('#request_form').submit()" %>):
+            <% directive.sponsors.each do |sponsor| %>
+                <%= sponsor.position %>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+    <% else %>
+      <b>Sponsors</b>:
+        <% directive.sponsors.each do |sponsor| %>
+          <%= sponsor.position %>
+        <% end %>
+      <br>
+    <% end %>
+
+    <% unless directive.creators.include?(current_user) %>
+  <div id="follow_form">
+    <% if directive.signers.include?(current_user) %>
+        <%= form_for(directive.signatures.find_by(user_id: current_user[:id]),
+                     html: { id: "unsign_form", method: :delete }, remote: true) do |f| %>
+            <%= hidden_field_tag :user_id, current_user[:id] %>
+            <%= hidden_field_tag :directive_id, directive[:id] %>
+            <b>Signers</b>(<%= link_to 'unsign', "#", :onclick => "$('#unsign_form').submit()" %>):
+            <% directive.signers.each do |signer| %>
+                <%= signer.position %>
+            <% end %>
+        <% end %>
+    <% elsif !directive.signers.include?(current_user) %>
+        <%= form_for(directive.signatures.build, remote: true, html: { id: "sign_form"}) do |f| %>
+            <%= hidden_field_tag :user_id, current_user[:id] %>
+            <%= hidden_field_tag :directive_id, directive[:id] %>
+            <b>Signers</b>(<%= link_to 'sign', "#", :onclick => "$('#sign_form').submit()" %>):
+            <% directive.signers.each do |signer| %>
+                <%= signer.position %>
+            <% end %>
+        <% end %>
+    <% end %>
+  </div>
+    <% else %>
+      <b>Signers</b>:
+        <% directive.signers.each do |sponsor| %>
+          <%= sponsor.position %>
+        <% end %>
+    <% end %>
+  </span>
+  <span class= "content">
+    <b>Posted: </b>
+  <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
+  </span>
+  <span class= "content">
+    <b>Title:</b>
+    <%= directive.title %>
+  </span>
+  <span class="content">
+    <b>Content:</b> <br>
+    <%= render inline: directive.content %>
+    <%= image_tag directive.picture.url if directive.picture? %>
+  </span>
+  <span class="content">
+    <b>Avaliable Actions:</b>
+    <% if directive.creators.include?(current_user) %>
+
+      <%= link_to "delete", directive, method: :delete,
+                                       data: { confirm: "You sure?" } %>,
+      <%= link_to "edit",
+                        :controller => "directives",
+                        :action => "edit",
+                        :id => directive.id %>,
+    <% end %>
+    <% if directive.sponsors.include?(current_user) or directive.creators.include?(current_user) %>
+    <%= link_to "friendly amendaments",
+                :controller => "comments",
+                :action => "new",
+                :directive_id => directive.id %>,
+    <% end %>
+    <%= link_to "unfriendly amendaments",
+                :controller => "comments",
+                :action => "new",
+                :directive_id => directive.id %>,
+    <% if directive.creators.include?(current_user) %>
+    <%= link_to "resolution management",
+                :controller => "static_pages",
+                :action => "resolution_management",
+                :directive_id => directive.id %>
+    <% end %>
+  </span>
+
+    <% if current_user[:type] == "Crisis" %>
+    <span>
+        <% directive.tags.each do |tag| %>
+            #<%= tag.tag %>
+        <% end %>
+    </span>
+
+    <span>
+      <%= link_to "new tags",
+            :controller => "tags",
+            :action => "new",
+            :directive_id => directive.id %>
+    </span>
+    <% end %>
+</li>
+<hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />

@@ -5,8 +5,10 @@
 
 .replies {
   margin-left: 25px;
-  font-size: 12px;
-  
+  font-size: 13px;
+  hr {
+    border-top: black;
+  }
 }
 
 
@@ -64,9 +66,10 @@ h2 {
 }
 
 p {
-  font-size: 1.1em;
+  font-size: 13px;
   line-height: 1.7em;
 }
+
 
 
 /* header */
@@ -266,7 +269,7 @@ input {
       display: block;
       padding: 5px 0;
     }
-    font-size: 12px;
+    font-size: 13px;
   }
   .content-small {
     display: block;
@@ -295,4 +298,18 @@ span.picture {
   input {
     border: 0;
   }
+}
+/* Tiny Mce Format */
+body.mce-content-body {
+  font-size: 14px;
+}
+
+/* button format */
+
+.text_button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  text-decoration: underline; /* if desired */
+  color: #00c;  /* or whatever other color you want */
 }

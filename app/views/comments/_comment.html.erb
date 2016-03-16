@@ -1,20 +1,26 @@
 <div class = "reply">
   <% if !comment.nil? %>
+  <% from_reply_form ||= nil %>
+
+
   <span>
     <p><%= comment.content %></p>
-    <% from_reply_form ||= nil %>
 
-  <p class="content"> Replied on
-    <%= I18n.l comment.created_at.in_time_zone, :format => :short %>
-    <% unless from_reply_form %>
-        <%= link_to 'reply', new_comment_path(comment.id) %>
-    <% end %>
-  </p>
+    <div class="content-small">
+      Replied on:
+      <%= I18n.l comment.created_at.in_time_zone, :format => :short %>
+      <% unless from_reply_form %>
+          <%= link_to 'reply', new_comment_path(comment.id) %>
+      <% end %>
+    </div>
+
   <% else %>
-  <span><p class="content"><%= link_to 'reply', directive.comments.new %></p></span>
+      <span><p class="content"><%= link_to 'reply', directive.comments.new %></p></span> <br>
+
   <% end %>
 
   </span>
+
 </div>
 
 <!--NEED CSS SHEET HERE-->

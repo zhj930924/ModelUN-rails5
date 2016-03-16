@@ -76,16 +76,16 @@ class StaticPagesController < ApplicationController
 
   end
   
-  def resolutions
+  def public_resolutions
     if user_signed_in? 
       @user = current_user
-      if (current_user[:type] == "Delegate")
+      if current_user[:type] == "Delegate"
         resolutions_ids = "SELECT directive_id FROM directives_users
                                   WHERE user_id = :user_id"
-        @rs_feed = Resolution.all.paginate(page: params[:rs_page])
-        @directive = current_user.sponsored_resolutions.build
+        @rs_feed = Resolution.where("public = 't'").paginate(page: params[:rs_page])
+        @directive = current_user.created_resolutions.build
         
-      elsif(current_user[:type] == "Crisis")  
+      elsif current_user[:type] == "Crisis"
         user_ids = "SELECT delegate_id FROM manages WHERE crisis_id = :crisis_id"
         committee_directive_ids = "SELECT directive_id FROM directives_users 
                         WHERE user_id IN (#{user_ids}) AND type IN ('ResolutionSponsorship', 
@@ -97,13 +97,27 @@ class StaticPagesController < ApplicationController
     else redirect_to root_url
     end
   end
-  
+
+  def private_resolutions
+    if user_signed_in?
+      @user = current_user
+      if current_user[:type] == "Delegate"
+        resolutions_ids = "SELECT directive_id FROM directives_users
+                                  WHERE user_id = :user_id"
+        @rs_feed = Resolution.where("id IN (#{resolutions_ids} and public = 'f')",
+                                             user_id: current_user[:id]).paginate(page: params[:rs_page])
+        @directive = current_user.created_resolutions.build
+      end
+    else redirect_to root_url
+    end
+  end
+
   def crisis_updates
     if user_signed_in?
       @user = current_user
       @cs_feed = CrisisUpdate.all.paginate(page: params[:cs_page])
 
-      if(current_user[:type] == "Crisis")  
+      if current_user[:type] == "Crisis"
         @directive = current_user.crisis_updates.build
       end
     else redirect_to root_url
@@ -113,7 +127,7 @@ class StaticPagesController < ApplicationController
   def notes
     if user_signed_in?
       @user = current_user
-      if (current_user[:type] == "Delegate")
+      if  current_user[:type] == "Delegate"
         redirect_to root_url
       elsif(current_user[:type] == "Crisis")
         @directive = current_user.notes.build if user_signed_in?

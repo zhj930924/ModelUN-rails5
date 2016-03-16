@@ -8,12 +8,21 @@ class ResolutionsController < DirectivesController
       redirect_to root_url
     else
       flash[:error] = "Fail"
-      render 'static_pages/resolutions'
+      render 'static_pages/public_resolutions'
     end
   end
 
-    private
-        def directive_params
-            params.require(:resolutions).permit(:content, :picture, :title, :type)
-        end
+  def update
+    @directive = Directive.find_by(id: params[:id])
+    if @directive.update_attributes(directive_params)
+      redirect_to root_url
+    else
+      flash[:error] = "Wrong"
+    end
+  end
+
+  private
+      def directive_params
+          params.require(:resolution).permit(:content, :picture, :title, :type, :editable, :passed, :public)
+      end
 end

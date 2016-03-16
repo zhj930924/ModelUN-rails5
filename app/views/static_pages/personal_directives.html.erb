@@ -6,12 +6,12 @@
         <section class="user_info">
             <%= render 'shared/user_info' %>
         </section>
-      <% if current_user[:type] == "Delegate" %>
-        <h4>New Personal Directives</h4>
+        <% if current_user[:type] == "Delegate" %>
+            <h4>New Personal Directives</h4>
         <span>
             <%= render 'directives/form' %>
         </span>
-      <% end %>
+        <% end %>
       </aside>
       <div class="col-md-8">
         <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
@@ -22,11 +22,9 @@
                       :search_query,
                   ) %>
             </div>
-
             <%= f.submit "submit" %>
 
         <% end %>
-
         <% if @pd_feed.any? %>
           <h3>Personal Directives (<%= @pd_feed.count %>)</h3>
           <ol class="directives">

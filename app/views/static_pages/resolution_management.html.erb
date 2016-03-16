@@ -6,6 +6,12 @@
     you can remove current sponsors/signatures or add new sponsors/signatures. 
     </p>
     <h5>
+      <b>Sponsorship Requests: </b>
+      <% directive.requestors.each do |sponsor| %>
+          <%= sponsor.position %> ,
+      <% end %>
+    </h5>
+    <h5>
         <b>Sponsors: </b>
         <% directive.sponsors.each do |sponsor| %>
             <%= sponsor.position %> ,
@@ -23,22 +29,8 @@
 
 <span>
     <b>Title:</b> <%= directive.title %> <br>
-    <b>Content:</b> <%= directive.content %> <br>
+    <b>Content:</b> <%= render inline: directive.content %> <br>
 </span>
-
-<h4>Remove Existing Sponsors</h4>
-
-<%= form_for(@sponsorship, :html => { :method => :delete }) do |f| %>
-  <% sponsors = [] %> 
-	<% directive.sponsors.all.each do |s| %>
-	  <% sponsors << [s.position, s.id] %>
-	<% end %>
-  <%= hidden_field_tag :directive_id, directive.id %>
-  <%= f.select :user_id, options_for_select(sponsors) %>
-  <%= f.submit "Delete Sponsors", class: 'btn btn-primary' %>
-  
-<% end %>
-
 
 <h4>Add New Sponsors</h4>
 

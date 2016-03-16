@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   def index
-    @comments = Comment.hash_tree
+    @comments = Comment.hash_tree(limit_depth: 2)
     @filterrific = initialize_filterrific(
       Comment,
       params[:filterrific]

@@ -3,7 +3,8 @@
 <span><%= current_user.committee %></span>
 <span><%= link_to "my mailbox", mailbox_inbox_path %></span>
 <span><%= link_to "personal directives", personal_directives_path %></span>
-<span><%= link_to "committee directives", resolutions_path %></span>
+<span><%= link_to "public resolutions", public_resolutions_path %></span>
+<span><%= link_to "private resolutions", private_resolutions_path if current_user[:type] == "Delegate" %></span>
 <span><%= link_to "crisis updates", crisis_updates_path %></span>
 <span><%= link_to "delegate list", users_path %></span>
 <span><%= link_to "crisis notes", notes_path if current_user[:type] == "Crisis"%></span>

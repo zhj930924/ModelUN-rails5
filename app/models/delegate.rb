@@ -20,6 +20,12 @@ class Delegate < User
     has_many :created_resolutions, through: :creations, 
                                     class_name: "Resolution",
                                     source: :resolution
+
+    has_many :requests, class_name: "ResolutionRequest",
+             foreign_key: "user_id"
+    has_many :requested_resolutions, through: :requests,
+             class_name: "Resolution",
+             source: :resolution
     
     has_many :manages, foreign_key: "delegate_id"
     has_many :crises, through: :manages

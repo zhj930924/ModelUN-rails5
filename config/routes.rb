@@ -45,7 +45,8 @@ Rails.application.routes.draw do
   get 'user/all' => 'users#index'
   get "personal_directives" => 'static_pages#personal_directives'
   get "notes" => 'static_pages#notes'
-  get "resolutions" => 'static_pages#resolutions'
+  get "private_resolutions" => 'static_pages#private_resolutions'
+  get "public_resolutions" => 'static_pages#public_resolutions'
   get "crisis_updates" => 'static_pages#crisis_updates'
   get 'resolution_management' => 'static_pages#resolution_management'
 
@@ -66,6 +67,7 @@ Rails.application.routes.draw do
   resources :directives_tags
   resources :resolution_sponsorships, only: [:create, :destroy]
   resources :resolution_signings, only: [:create, :destroy]
+  resources :resolution_requests, only: [:create, :destroy]
   #root to: "static_pages#home"
   
 

@@ -7,7 +7,7 @@
   </span>
 
   <span class= "content">
-    <b>Created: </b>
+    <b>Posted: </b>
     <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
   </span>
   <% if current_user[:type] == "Crisis" %>
@@ -54,4 +54,4 @@
     <%= comments_tree_for directive.comments.hash_tree %>
   </span>
 </li>
-<hr>
+<hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />

@@ -1,11 +1,22 @@
 <li id="directive-<%= directive.id %>">
-  <span class="user">
-      <% directive.users.each do |user| %> 
-          <%= user.position %>
+
+  <span class="content">
+  <% if current_user[:type] == "Crisis" %>
+  <span class="content">
+    <b>Tags(<%= link_to "new tags",
+                        :controller => "tags",
+                        :action => "new",
+                        :directive_id => directive.id %>):</b>
+      <% directive.tags.each do |tag| %>
+          #<%= tag.tag %>
       <% end %>
   </span>
+  <% end %>
+  <b>Posted:</b>
+  <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
+  </span>
   <span class= "content">
-    <b>Title:</b> <br>
+    <b>Title:</b>
     <%= directive.title %>
   </span>
   <span class="content">
@@ -13,31 +24,14 @@
     <%= render inline: directive.content %>
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
-  <span class="timestamp">
-    Posted <%= directive.created_at %>.
-    <% if current_user[:type] == "Crisis" %>
-      
-      <%= link_to "delete", directive, method: :delete,
-                                       data: { confirm: "You sure?" } %>
+  <% if current_user[:type] == "Crisis" %>
+  <span class="content">
+      <b>Avaliable Actions:</b>
       <%= link_to "edit", 
                         :controller => "directives",
                         :action => "edit",
                         :id => directive.id %>
   </span>
-    <span>
-        <% directive.tags.each do |tag| %>
-            #<%= tag.tag %>  
-        <% end %>
-    </span>
-  
-    <span>
-      <%= link_to "new tags", 
-            :controller => "tags", 
-            :action => "new", 
-            :directive_id => directive.id %>
-    </span>
   <% end %>
-  <span>
-    <%= comments_tree_for directive.comments.hash_tree %>
-  </span>
 </li>
+<hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />

@@ -1,7 +1,12 @@
 class DirectivesController < ApplicationController
   
   def update
-    @directive.update_attribute(:title => params[:directive][:title], :content => params[:directive][:content])
+    @directive = Directive.find_by(id: params[:id])
+    if @directive.update_attributes(directive_params)
+      redirect_to request.referrer
+    else
+      flash[:error] = "Wrong"
+    end
   end
   
   def edit
@@ -55,7 +60,7 @@ class DirectivesController < ApplicationController
 
   private
       def directive_params
-          params.require(:resolutions).permit(:content, :picture, :title, :type)
+          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :editable)
       end
 
   

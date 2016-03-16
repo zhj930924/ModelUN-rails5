@@ -20,5 +20,12 @@ class Resolution < Directive
     has_many :creators, through: :creations, 
                         class_name: "Delegate",
                         source: :delegate
+
+    has_many :requests, class_name: "ResolutionRequest",
+             foreign_key: "directive_id"
+
+    has_many :requestors, through: :requests,
+             class_name: "Delegate",
+             source: :delegate
                         
 end
