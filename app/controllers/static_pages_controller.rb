@@ -54,8 +54,6 @@ class StaticPagesController < ApplicationController
     if user_signed_in? 
       @user = current_user
       if (current_user[:type] == "Delegate")
-        resolutions_ids = "SELECT directive_id FROM directives_users
-                                  WHERE user_id = :user_id"
         @rs_feed = Resolution.all.paginate(page: params[:rs_page])
         @directive = current_user.sponsored_resolutions.build
         

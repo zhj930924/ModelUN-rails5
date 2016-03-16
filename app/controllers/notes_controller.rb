@@ -12,8 +12,8 @@ class NotesController < DirectivesController
     end
   end
     
-    private 
-        def directive_params
-            params.require(:notes).permit(:content, :picture, :title, :type)
-        end
+  private 
+    def directive_params
+      params.require(:notes).permit(:content, :picture, :title, :type)
+    end
 end

@@ -1,10 +1,11 @@
 <% directive = Directive.find_by(id: directive_id) %>
+<% id = directive_id %>
 <% unless directive.creators.include?(current_user) %>
-  <div id="follow_form">
+  <div id="sponsor_form">
     <% if directive.sponsors.include?(current_user) %>
-      <%= render partial: 'shared/unsponsor', locals: {directive_id: directive_id} %>
+      <%= render partial: 'shared/unsponsor', locals: {directive_id: id} %>
     <% elsif !directive.signers.include?(current_user) %>
-      <%= render partial: 'shared/sponsor', locals: {directive_id: directive_id} %>
+      <%= render partial: 'shared/sponsor', locals: {directive_id: id} %>
     <% end %>
   </div>
 <% end %>

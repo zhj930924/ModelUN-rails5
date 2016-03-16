@@ -1,14 +1,11 @@
 <div class="media">
-  <div class="media-left">
-    <a href="#">
-      <img class="media-object" src="http://placehold.it/64x64" alt="...">
-    </a>
-  </div>
+  
   <div class="media-body">
     <h4 class="media-heading">
-      <%= conversation.originator.name %> <br>
-      <small><b>Subject: </b><%= conversation.subject %></small><br>
-      <small><b>Date: </b><%= conversation.messages.last.created_at %></small>
+      <%= conversation.subject %> <br>
+      <small><b>From: </b><%= conversation.originator.name %></small><br>
+      <small><b>Date: </b><%= display_date(conversation.messages.last.created_at.in_time_zone('Eastern Time (US & Canada)')) %></small>
+      <!--.strftime("%-d %B %Y, %H:%M:%S")-->
     </h4>
     <%= truncate conversation.messages.last.body, length: 145 %>
     <%= link_to "View", conversation_path(conversation) %>

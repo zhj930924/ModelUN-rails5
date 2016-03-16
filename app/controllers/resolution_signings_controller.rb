@@ -2,7 +2,6 @@ class ResolutionSigningsController < ApplicationController
     
     def create
         current_user.signatures.create(directive_id: params[:directive_id])
-        
         respond_to do |format|
             format.html { redirect_to "redirect_to :back"}
             format.js

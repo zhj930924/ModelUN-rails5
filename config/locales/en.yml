@@ -1,4 +1,4 @@
-en-US:
+en:
   activerecord:
     errors:
       messages:
@@ -40,7 +40,8 @@ en-US:
     formats:
       default: "%m-%d-%Y"
       long: "%B %d, %Y"
-      short: "%b %d"
+      short: "%-d %B %Y, %H:%M:%S"
+      custom: "%-d %B %Y, %H:%M:%S"
     month_names:
     -
     - January
@@ -205,5 +206,6 @@ en-US:
     formats:
       default: "%a, %d %b %Y %I:%M:%S %p %Z"
       long: "%B %d, %Y %I:%M %p"
-      short: "%d %b %I:%M %p"
+      short: "%-d %B %Y, %H:%M:%S"
+      custom: "%-d %B %Y, %H:%M:%S"
     pm: pm
