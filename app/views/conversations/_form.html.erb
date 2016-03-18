@@ -1,4 +1,5 @@
 <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
+
     <div class="form-group">
       <%= f.label :recipients %>
       <%= f.select(:recipients, User.all.collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
@@ -13,4 +14,5 @@
     </div>
 
     <%= f.submit "Send Message", class: "btn btn-success" %>
+    
 <% end %>

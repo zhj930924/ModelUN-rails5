@@ -22,4 +22,8 @@ module ApplicationHelper
     @active == active_page ? "active" : ""
   end
     
+  def display_date(date, message='Date unavailable')
+  date ? l(date, format: :short) : message
+  end
+
 end

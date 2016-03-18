@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import 'bootstrap/theme';
 /* comments */
 
 .replies {
@@ -11,7 +11,19 @@
   }
 }
 
+div.a {
+  margin-top: 5%;
+  width: 200px;
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+div.b {
+  margin-left: auto;
+  margin-right: auto;
+  text-align:center;
+}
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;

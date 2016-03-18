@@ -4,4 +4,9 @@ module MailboxHelper
     # using mailboxer
     mailbox.inbox(:unread => true).count(:id, :distinct => true)
   end
+  
+  def send_message_count
+    mailbox.sentbox.count(:id, :distinct => true)  
+  end
+  
 end

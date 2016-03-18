@@ -61,16 +61,28 @@ class User < ActiveRecord::Base
         update_attribute(:remember_digest, nil)
     end
     
-    def crisis_update_feed
-        directive_ids = "SELECT directive_id FROM directives_users
-                        WHERE type = 'updatecrisis' and user_id = :user_id"
-        Directive.where("id IN (#{directive_ids})", user_id: id)
+    def sign(d)
+        resolution_signings.create(directive_id: d.id)
     end
     
-    def delegate_personal_directive_feed
-        directive_ids = "SELECT directive_id FROM directives_users
-                        WHERE type = 'IssueDirective' and user_id = :user_id"
-        Directive.where("id IN (#{directive_ids})", user_id: id)
+    def unsign(d)
+        resolution_signings.find_by(directive_id: d.id).destroy
+    end
+    
+    def signed?(d)
+        resolution_signings.include?(directive_id)
+    end
+    
+    def sponsor(d)
+        resolution_sponsorships.create(directive_id: d.id)
+    end
+    
+    def unsign(d)
+        resolution_sponsorships.find_by(directive_id: d.id).destroy
+    end
+
+    def sponsored?(d)
+        resolution_sponsorships.include?(directive_id)
     end
     
     def self.options_for_select
