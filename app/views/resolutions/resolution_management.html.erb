@@ -19,7 +19,7 @@
     </h5>
     <h5>
         <b>Signers: </b>
-        <% directive.signatures.each do |signer| %>
+        <% directive.signers.each do |signer| %>
             <%= signer.position %> ,
         <% end %>
     </h5>    
@@ -29,7 +29,7 @@
 
 <span>
     <b>Title:</b> <%= directive.title %> <br>
-    <b>Content:</b> <%= render inline: directive.content %> <br>
+    <b>Content:</b> <br> <%= render inline: directive.content %> <br>
 </span>
 
 <h4>Add New Sponsors</h4>
@@ -51,7 +51,7 @@
 <h4>Remove Existing Signers</h4>
 
 <%= form_for(@signature, :html => { :method => :delete }) do |f| %>
-  <% signers= [] %> 
+  <% signers= [] %>
 	<% directive.signers.all.each do |s| %>
 	  <% signers << [s.position, s.id] %>
 	<% end %>

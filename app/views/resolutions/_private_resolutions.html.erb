@@ -8,41 +8,24 @@
                                  :confirm => "Are you sure?" %>):</b>
             <% if !directive[:public] %>
                 Private
-            <% elsif directive[:passed] %>
-                Passed!
-            <% elsif !directive[:passed] %>
-                Failed :(
             <% else %>
-                On the Floor
+              <%= directive[:status] %>
     <% end %>
     <% end %>
     <br>
     <b>Creators:</b>
     <% directive.creators.each do |creator| %>
-    <%= creator.position %>
+    <%= creator.position %>,
     <% end %>
     <br>
     <% unless directive.creators.include?(current_user) %>
-  <div id="follow_form">
-    <% if directive.requestors.include?(current_user) %>
-        <%= form_for(directive.requests.find_by(user_id: current_user[:id]),
-                     html: { id: "unrequest_form", method: :delete }, remote: true) do |f| %>
-            <%= hidden_field_tag :user_id, current_user[:id] %>
-            <%= hidden_field_tag :directive_id, directive[:id] %>
-            <b>Sponsors</b>(<%= link_to 'unrequest sponsorship', "#", :onclick => "$('#unrequest_form').submit()" %>):
-            <% directive.sponsors.each do |sponsor| %>
-                <%= sponsor.position %>
-            <% end %>
-        <% end %>
-    <% elsif !directive.requestors.include?(current_user) %>
-        <%= form_for(directive.requests.build, remote: true, html: { id: "request_form"}) do |f| %>
-            <%= hidden_field_tag :user_id, current_user[:id] %>
-            <%= hidden_field_tag :directive_id, directive[:id] %>
-            <b>Sponsors</b>(<%= link_to 'request sponsorship', "#", :onclick => "$('#request_form').submit()" %>):
-            <% directive.sponsors.each do |sponsor| %>
-                <%= sponsor.position %>
-            <% end %>
-        <% end %>
+  <div id="sponsor_form">
+    <% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_requests/unrequest", :locals => {directive_id: directive[:id]} %>
+    <% elsif !directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_requests/request", :locals => {directive_id: directive[:id]} %>
+    <% elsif directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_sponsorships/unsponsor", :locals => {directive_id: directive[:id]} %>
     <% end %>
   </div>
     <% else %>
@@ -55,24 +38,9 @@
     <% unless directive.creators.include?(current_user) %>
   <div id="follow_form">
     <% if directive.signers.include?(current_user) %>
-        <%= form_for(directive.signatures.find_by(user_id: current_user[:id]),
-                     html: { id: "unsign_form", method: :delete }, remote: true) do |f| %>
-            <%= hidden_field_tag :user_id, current_user[:id] %>
-            <%= hidden_field_tag :directive_id, directive[:id] %>
-            <b>Signers</b>(<%= link_to 'unsign', "#", :onclick => "$('#unsign_form').submit()" %>):
-            <% directive.signers.each do |signer| %>
-                <%= signer.position %>
-            <% end %>
-        <% end %>
+        <%= render :partial => "resolution_signings/unsign", :locals => {directive_id: directive[:id]} %>
     <% elsif !directive.signers.include?(current_user) %>
-        <%= form_for(directive.signatures.build, remote: true, html: { id: "sign_form"}) do |f| %>
-            <%= hidden_field_tag :user_id, current_user[:id] %>
-            <%= hidden_field_tag :directive_id, directive[:id] %>
-            <b>Signers</b>(<%= link_to 'sign', "#", :onclick => "$('#sign_form').submit()" %>):
-            <% directive.signers.each do |signer| %>
-                <%= signer.position %>
-            <% end %>
-        <% end %>
+        <%= render :partial => "resolution_signings/sign", :locals => {directive_id: directive[:id]} %>
     <% end %>
   </div>
     <% else %>
@@ -110,15 +78,17 @@
     <%= link_to "friendly amendaments",
                 :controller => "comments",
                 :action => "new",
-                :directive_id => directive.id %>,
+                :directive_id => directive.id,
+                :function => "Friendly Amendaments" %>,
     <% end %>
     <%= link_to "unfriendly amendaments",
                 :controller => "comments",
                 :action => "new",
-                :directive_id => directive.id %>,
+                :directive_id => directive.id,
+                :function => "Unfriendly Amendaments" %>,
     <% if directive.creators.include?(current_user) %>
     <%= link_to "resolution management",
-                :controller => "static_pages",
+                :controller => "resolutions",
                 :action => "resolution_management",
                 :directive_id => directive.id %>
     <% end %>
@@ -138,5 +108,9 @@
                   :directive_id => directive.id %>
     </span>
   <% end %>
+  <span class="content">
+  <b>Amendaments:</b><br><br>
+  <%= comments_tree_for directive.comments.hash_tree %>
+  </span>
 </li>
 <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />

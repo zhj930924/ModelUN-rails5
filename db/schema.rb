@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20160224210552) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "directive_id"
+    t.text     "function"
     t.text     "content"
     t.integer  "parent_id"
     t.datetime "created_at",   null: false
@@ -38,9 +39,9 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.string   "type"
     t.boolean  "editable",   default: true
     t.boolean  "public",     default: false
-    t.boolean  "passed",     default: true
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "status",     default: "Draft"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "picture"
   end
 

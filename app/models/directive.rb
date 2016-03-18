@@ -15,7 +15,7 @@ class Directive < ActiveRecord::Base
     has_many :tags, through: :directives_tags
     
     def self.types
-        %w(PersonalDirective Resolution CrisisUpdate)
+        %w(PersonalDirective Resolution CrisisUpdate Note)
     end
     
     #Identification of Filterrific for Directive class    

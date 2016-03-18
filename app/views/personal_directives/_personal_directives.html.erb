@@ -50,7 +50,9 @@
     <b>Replies </b> (<%= link_to "new reply",
                 :controller => "comments",
                 :action => "new",
-                :directive_id => directive.id %>):
+                :function => "Crisis Replies",
+                :directive_id => directive.id
+                 %>):
     <%= comments_tree_for directive.comments.hash_tree %>
   </span>
 </li>

@@ -11,7 +11,6 @@ class ResolutionRequestsController < ApplicationController
 
   def destroy
     current_user.requests.find_by(directive_id: params[:directive_id]).destroy
-    redirect_to "static_pages/resolutions"
     respond_to do |format|
       format.html { redirect_to "redirect_to :back"}
       format.js

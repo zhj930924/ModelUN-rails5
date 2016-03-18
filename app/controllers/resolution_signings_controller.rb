@@ -1,19 +1,27 @@
 class ResolutionSigningsController < ApplicationController
     
     def create
-        current_user.signatures.create(directive_id: params[:directive_id])
-        
+        if params[:resolution_signing][:user_id] != nil
+            ResolutionSigning.create(directive_id: params[:directive_id], user_id: params[:resolution_signing][:user_id])
+        else
+            current_user.signatures.create(directive_id: params[:directive_id])
+        end
+
         respond_to do |format|
-            format.html { redirect_to "redirect_to :back"}
+            format.html { redirect_to request.referrer}
             format.js
         end        
     end
     
     def destroy
-        current_user.signatures.find_by(directive_id: params[:directive_id]).destroy
-        redirect_to "static_pages/resolutions"
+        if params[:resolution_signing][:user_id] != nil
+            ResolutionSigning.find_by(directive_id: params[:directive_id], user_id: params[:resolution_signing][:user_id]).destroy
+        else
+            current_user.signatures.find_by(directive_id: params[:directive_id]).destroy
+        end
+
         respond_to do |format|
-            format.html { redirect_to "redirect_to :back"}
+            format.html { redirect_to request.referrer}
             format.js
         end
     end

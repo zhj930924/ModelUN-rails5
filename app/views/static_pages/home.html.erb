@@ -9,14 +9,14 @@
       <div class="col-md-5">
         <h3>Crisis Updates</h3>
         <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />
-        <%= render "shared/cs_feed" %>
+        <%= render "crisis_updates/cs_feed" %>
       </div>
 
       <div class="col-md-5">
         <h3>Personal Directives(Crisis Notes)</h3>
-        <%= link_to "new personal directives", personal_directives_path %>
+        <%= link_to "new personal directives", new_personal_directive_path, :target => '_blank' %>
         <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />
-        <%= render "shared/pd_feed" %>
+        <%= render "personal_directives/pd_feed" %>
       </div>
     </div>
   <% elsif current_user[:type] == 'Crisis'%>
@@ -29,12 +29,14 @@
       <div class="col-md-5">
         <h3>Personal Directives/Crisis Notes</h3>
         <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />
-        <%= render "shared/pd_feed" %>
+        <%= render "personal_directives/pd_feed" %>
       </div>
       <div class="col-md-5">
-        <h3>Resolution</h3>
+        <h3>Public Resolutions</h3>
         <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />
-        <%= render "shared/rs_feed" %>
+        <ol class="directives">
+          <%= render partial: "resolutions/public_resolutions", collection: @rs_feed, as: 'directive' %>
+        </ol>
       </div>
     </div>
   <% else %>

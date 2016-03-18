@@ -1,0 +1,112 @@
+<li id="directive-<%= directive.id %>">
+  <span class = "content">
+    <% @directive = directive %>
+
+    <b>Status<%= link_to "(make private)", directive_path(@directive, :directive => {:public => false}),
+                             :method => :put,
+                             :confirm => "Are you sure?" if directive.creators.include?(current_user) %>:</b>
+            <% if directive[:passed] %>
+                Passed!
+            <% else %>
+              <%= directive[:status] %>
+    <% end %>
+    <br>
+    <b>Creators:</b>
+    <% directive.creators.each do |creator| %>
+    <%= creator.position %>
+    <% end %>
+    <br>
+    <% unless directive.creators.include?(current_user) %>
+  <div id="sponsor_form">
+    <% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_requests/unrequest", :locals => {directive_id: directive[:id]} %>
+    <% elsif !directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_requests/request", :locals => {directive_id: directive[:id]} %>
+    <% elsif directive.sponsors.include?(current_user) %>
+        <%= render :partial => "resolution_sponsorships/unsponsor", :locals => {directive_id: directive[:id]} %>
+    <% end %>
+  </div>
+    <% else %>
+      <b>Sponsors</b>:
+        <% directive.sponsors.each do |sponsor| %>
+          <%= sponsor.position %>
+        <% end %>
+      <br>
+    <% end %>
+
+    <% unless directive.creators.include?(current_user) %>
+  <div id="follow_form">
+    <% if directive.signers.include?(current_user) %>
+        <%= render :partial => "resolution_signings/unsign", :locals => {directive_id: @directive[:id]} %>
+    <% elsif !directive.signers.include?(current_user) %>
+        <%= render :partial => "resolution_signings/sign", :locals => {directive_id: @directive[:id]} %>
+    <% end %>
+  </div>
+    <% else %>
+      <b>Signers</b>:
+        <% directive.signers.each do |sponsor| %>
+          <%= sponsor.position %>
+        <% end %>
+    <% end %>
+  </span>
+  <span class= "content">
+    <b>Posted: </b>
+  <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
+  </span>
+  <span class= "content">
+  <% if current_user[:type] == "Crisis" %>
+    <span class = "content">
+      <b>Tags: </b>
+      <% directive.tags.each do |tag| %>
+            #<%= tag.tag %>
+      <% end %>
+      <%= link_to "new tags",
+                  :controller => "tags",
+                  :action => "new",
+                  :directive_id => directive.id %>
+    </span>
+  <% end %>
+    <b>Title:</b>
+    <%= directive.title %>
+  </span>
+  <span class="content">
+    <b>Content:</b> <br>
+    <%= render inline: directive.content %>
+    <%= image_tag directive.picture.url if directive.picture? %>
+  </span>
+  <span class="content">
+    <b>Avaliable Actions:</b>
+    <% if directive.creators.include?(current_user) %>
+
+      <%= link_to "delete", directive, method: :delete,
+                                       data: { confirm: "You sure?" } %>,
+      <%= link_to "edit",
+                        :controller => "directives",
+                        :action => "edit",
+                        :id => directive.id %>,
+    <% end %>
+    <% if directive.sponsors.include?(current_user) or directive.creators.include?(current_user) %>
+    <%= link_to "friendly amendaments",
+                :controller => "comments",
+                :action => "new",
+                :directive_id => directive.id,
+                :function => "Friendly Amendaments" %>,
+    <% end %>
+    <%= link_to "unfriendly amendaments",
+                :controller => "comments",
+                :action => "new",
+                :directive_id => directive.id,
+                :function => "Unfriendly Amendaments" %>,
+    <% if directive.creators.include?(current_user) %>
+    <%= link_to "resolution management",
+                :controller => "resolutions",
+                :action => "resolution_management",
+                :directive_id => directive.id %>
+    <% end %>
+  </span>
+  <span class="content">
+  <b>Amendaments:</b><br><br>
+    <%= comments_tree_for directive.comments.hash_tree %>
+  </span>
+</li>
+<hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />

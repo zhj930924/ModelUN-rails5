@@ -2,12 +2,12 @@
   <% if !comment.nil? %>
   <% from_reply_form ||= nil %>
 
-
+  <b>Type:</b> <%= comment[:function] %>
   <span>
     <p><%= comment.content %></p>
 
     <div class="content-small">
-      Replied on:
+      Created on:
       <%= I18n.l comment.created_at.in_time_zone, :format => :short %>
       <% unless from_reply_form %>
           <%= link_to 'reply', new_comment_path(comment.id) %>

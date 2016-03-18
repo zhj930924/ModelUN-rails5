@@ -6,9 +6,13 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <%= conversation.originator.name %> <br>
+      <% conversation.recipients.each do |recipient| %>
+      <%= recipient.position %>,
+      <% end %>
+          <br>
       <small><b>Subject: </b><%= conversation.subject %></small><br>
-      <small><b>Date: </b><%= conversation.messages.last.created_at %></small>
+      <small><b>Date: </b><%= I18n.l(conversation.messages.last.created_at.in_time_zone('Eastern Time (US & Canada)'),
+                              :format => :short) %></small>
     </h4>
     <%= truncate conversation.messages.last.body, length: 145 %>
     <%= link_to "View", conversation_path(conversation) %>

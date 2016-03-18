@@ -6,7 +6,7 @@ class CreateDirectives < ActiveRecord::Migration
         t.string :type
         t.boolean :editable, default: true
         t.boolean :public, default: false
-        t.boolean :passed, default: true
+        t.string :status, default: "Draft"
         t.timestamps null: false
 
     end

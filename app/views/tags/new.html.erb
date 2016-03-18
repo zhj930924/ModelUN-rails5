@@ -12,7 +12,7 @@
     </h5>
 </div>
 <h4>Directive Content</h4>
-<%= Directive.find_by(id: params[:directive_id]).content %>
+<%= render inline: Directive.find_by(id: params[:directive_id]).content %>
 
 <h4>Form for new tags</h4>
 

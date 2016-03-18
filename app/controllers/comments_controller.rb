@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.new(parent_id: params[:parent_id], directive_id: params[:directive_id])
+    @comment = Comment.new(parent_id: params[:parent_id], directive_id: params[:directive_id], function: params[:function])
   end
   
   def create
@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
     parent = Comment.find_by_id(params[:comment].delete(:parent_id))
     @comment = parent.children.build(comment_params)
     @comment.directive_id = parent.directive_id
+    @comment.function = parent.function
   else
     @comment = Comment.new(comment_params)
   end
@@ -37,7 +38,7 @@ end
   private
   
     def comment_params
-      params.require(:comment).permit(:directive_id, :content, :parent_id)
+      params.require(:comment).permit(:directive_id, :content, :parent_id, :function)
     end
 
 end

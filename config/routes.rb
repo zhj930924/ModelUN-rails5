@@ -43,14 +43,16 @@ Rails.application.routes.draw do
   get 'contact' => 'static_pages#contact'
   get 'about' => 'static_pages#about'
   get 'user/all' => 'users#index'
-  get "personal_directives" => 'static_pages#personal_directives'
   get "notes" => 'static_pages#notes'
-  get "private_resolutions" => 'static_pages#private_resolutions'
-  get "public_resolutions" => 'static_pages#public_resolutions'
-  get "crisis_updates" => 'static_pages#crisis_updates'
-  get 'resolution_management' => 'static_pages#resolution_management'
+  get "crisis_updates" => 'crisis_updates#crisis_updates'
+  get "public_resolutions" => 'resolutions#public_resolutions'
+  get "private_resolutions" => 'resolutions#private_resolutions'
+  get "resolution_management" => 'resolutions#resolution_management'
+  delete 'resolution_signings' => 'resolution_signings#destroy'
 
-  
+
+
+
   resources :users
   resources :crises, :controller => "users", :type => "Crisis"
   resources :delegates, :controller => "users", :type => "Delegate"

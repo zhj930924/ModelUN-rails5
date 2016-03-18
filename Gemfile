@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'gon'
 gem 'filterrific'
 gem 'chosen-rails'
 gem 'mailboxer'
