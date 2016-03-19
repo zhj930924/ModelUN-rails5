@@ -1,8 +1,8 @@
 <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
-
+    <% options = Delegate.where.not(id: current_user[:id]) %>
     <div class="form-group">
       <%= f.label :recipients %>
-      <%= f.select(:recipients, User.all.collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
+      <%= f.select(:recipients, options.collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
     </div>
     <div class="form-group">
       <%= f.label :subject %>
