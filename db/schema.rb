@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.string   "name"
     t.string   "committee"
     t.string   "position"
+    t.text     "dossier"
     t.string   "email"
     t.string   "remember_token"
     t.boolean  "admin"

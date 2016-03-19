@@ -25,7 +25,7 @@ class DirectivesController < ApplicationController
       redirect_to root_url
     else
       flash[:error] = "Fail"
-      render 'static_pages/personal_directives'
+      render 'personal_directives/personal_directives'
     end
   end
   
@@ -60,7 +60,7 @@ class DirectivesController < ApplicationController
 
   private
       def directive_params
-          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :editable, :status)
+          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :editable)
       end
 
   

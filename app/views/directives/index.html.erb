@@ -19,7 +19,7 @@
     <%= f.select(
       :with_tag_name,
       @filterrific.select_options[:with_tag_name],
-      { include_blank: '- Any -' }
+      { include_blank: '- Any -' }, multiple:true, class: "chosen-select form-control"
     ) %>
   </div>
   <div>
@@ -27,7 +27,7 @@
     <%= f.select(
       :with_user,
       @filterrific.select_options[:with_user],
-      { include_blank: '- Any -' }
+      { include_blank: '- Any -' }, multiple:true, class: "chosen-select form-control"
     ) %>
   </div>
   <div>
@@ -35,7 +35,7 @@
     <%= f.select(
       :with_directive_type,
       @filterrific.select_options[:with_directive_type],
-      { include_blank: '- Any -' }
+      { include_blank: '- Any -' }, multiple:true, class: "chosen-select form-control"
     ) %>
   </div>
     

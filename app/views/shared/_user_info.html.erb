@@ -6,6 +6,6 @@
 <span><%= link_to "public resolutions", public_resolutions_path %></span>
 <span><%= link_to "private resolutions", private_resolutions_path if current_user[:type] == "Delegate" %></span>
 <span><%= link_to "crisis updates", crisis_updates_path %></span>
-<span><%= link_to "delegate list", users_path %></span>
+<span><%= link_to "delegate list", "static_pages/dossier" %></span>
 <span><%= link_to "crisis notes", notes_path if current_user[:type] == "Crisis"%></span>
 <span><%= link_to "filter", 'directives#index' if current_user[:type] == "Crisis" %></span>

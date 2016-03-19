@@ -40,6 +40,8 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def dossier
+  end
   
   private
       def directive_params

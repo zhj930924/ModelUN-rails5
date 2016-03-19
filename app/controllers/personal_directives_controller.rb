@@ -39,7 +39,7 @@ class PersonalDirectivesController < DirectivesController
         params[:filterrific],
         select_options: {
             with_tag_name: Tag.options_for_select,
-            with_user: User.options_for_select,
+            with_user: User.options_for_select
         }
     ) or return
     filter_result = @filterrific.find

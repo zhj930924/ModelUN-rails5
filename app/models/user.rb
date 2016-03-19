@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
     #before_save {self.email = email.downcase}
     #VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     #self.inheritance_column = :type
-    validates :committee, presence: true, length: { maximum: 50}
-    validates :position, presence: true, length: {maximum: 50}
+    validates :committee, presence: true
+    validates :position, presence: true
     #validates :email, presence: true, length: { maximum: 255},
     #  format: {with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false}
     validates :name, presence: true, length: {maximum: 50}
