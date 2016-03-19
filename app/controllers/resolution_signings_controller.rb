@@ -14,7 +14,7 @@ class ResolutionSigningsController < ApplicationController
     end
     
     def destroy
-        if params[:resolution_signing][:user_id] != nil
+        if params[:resolution_signing]
             ResolutionSigning.find_by(directive_id: params[:directive_id], user_id: params[:resolution_signing][:user_id]).destroy
         else
             current_user.signatures.find_by(directive_id: params[:directive_id]).destroy
