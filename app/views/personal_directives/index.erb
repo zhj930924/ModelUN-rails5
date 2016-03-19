@@ -21,7 +21,7 @@
         <% end %>
         <% if @pd_feed.any? %>
           <h3>Personal Directives (Crisis Notes) (<%= @pd_feed.count %>)</h3>
-          <%= link_to "new personal directives", new_personal_directive_path, :target => '_blank' if current_user[:type] == "Delegate"%>
+          <%= link_to "new personal directives", new_personal_directives_path, :target => '_blank' if current_user[:type] == "Delegate"%>
           <ol class="directives">
             <%= render "pd_feed" %>
           </ol>
