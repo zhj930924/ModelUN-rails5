@@ -49,7 +49,7 @@ class PersonalDirectivesController < DirectivesController
       @user = current_user
       if current_user[:type] == "Delegate"
         personal_directive_ids = "SELECT directive_id FROM directives_users
-                          WHERE user_id == :id AND type = 'IssueDirective'"
+                          WHERE user_id = :id AND type = 'IssueDirective'"
         sql_result = PersonalDirective.where("id IN (#{personal_directive_ids})",
                                              id: current_user[:id]).paginate(page: params[:pd_page])
         @pd_feed = []
