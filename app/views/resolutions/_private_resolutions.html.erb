@@ -35,6 +35,14 @@
         <% end %>
         <br>
     <% end %>
+  <span class="content">
+    <b>Sponsorship Requests: </b>
+    <% directive.requestors.each do |sponsor| %>
+          <% if !directive.sponsors.include?(sponsor) %>
+            <%= sponsor.position %> ,
+          <% end %>
+      <% end %>
+  </span>
     <% unless directive.creators.include?(current_user) %>
   <div id="follow_form">
     <% if directive.signers.include?(current_user) %>
