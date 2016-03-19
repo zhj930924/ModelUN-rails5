@@ -33,8 +33,8 @@
         <% directive.sponsors.each do |sponsor| %>
           <%= sponsor.position %>
         <% end %>
+        <br>
     <% end %>
-    <br>
     <% unless directive.creators.include?(current_user) %>
   <div id="follow_form">
     <% if directive.signers.include?(current_user) %>

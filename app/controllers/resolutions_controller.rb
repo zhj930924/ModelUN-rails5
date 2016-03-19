@@ -23,7 +23,7 @@ class ResolutionsController < DirectivesController
           resolution.signatures.create(user_id: signer)
         end
       end
-      redirect_to root_url
+      redirect_to private_resolutions_path
     else
       flash[:error] = "Fail"
       @resolution = resolution

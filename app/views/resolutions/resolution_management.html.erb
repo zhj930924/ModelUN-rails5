@@ -8,7 +8,9 @@
     <h5>
       <b>Sponsorship Requests: </b>
       <% directive.requestors.each do |sponsor| %>
-          <%= sponsor.position %> ,
+          <% if !directive.sponsors.include?(sponsor) %>
+            <%= sponsor.position %> ,
+          <% end %>
       <% end %>
     </h5>
     <h5>

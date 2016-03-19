@@ -15,6 +15,10 @@ class ResolutionSponsorshipsController < ApplicationController
           user_id = [:resolution_sponsorship][:user_id]
         end
         ResolutionSponsorship.find_by(directive_id: params[:directive_id], user_id: user_id).destroy
+        directive = Directive.find_by(id: params[:directive_id])
+        if directive.requestors.include?(current_user)
+            ResolutionRequest.find_by(directive_id: params[:directive_id], user_id: params[:user_id]).destroy
+        end
         respond_to do |format|
             format.html { redirect_to request.referrer }
             format.js
