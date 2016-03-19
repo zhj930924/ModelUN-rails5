@@ -12,7 +12,8 @@
     </h5>
 </div>
 <h4>Directive Content</h4>
-<%= render inline: Directive.find_by(id: params[:directive_id]).content %>
+<% directive =  Directive.find_by(id: params[:directive_id]) %>
+<%= render inline: directive.content %>
 
 <h4>Form for new tags</h4>
 
@@ -39,13 +40,15 @@
   
 <% end %>
 
-<h4>Form for new tags</h4>
+<h4>Form for current tags</h4>
 
 <%= form_for(@relationship) do |f| %>
   <div><%= hidden_field_tag :directive_id, params[:directive_id] %>
   <% tags = [] %> 
 	<% Tag.all.each do |t| %>
+    <% if !directive.tags.include?(t) %>
 	  <% tags << t.tag %>
+    <% end %>
 	<% end %>
   <%= f.select :tag, options_for_select(tags) %>
   
@@ -53,3 +56,15 @@
   <%= f.submit "Create Link", class: "btn btn-primary" %>
 <% end %>
 
+<h4>Remove Association</h4>
+
+<%= form_for(@relationship, :html => { :method => :delete }) do |f| %>
+    <% tags= [] %>
+    <% directive.tags.all.each do |s| %>
+        <% tags << [s.tag, s.id] %>
+    <% end %>
+    <%= hidden_field_tag :directive_id, directive.id %>
+    <%= f.select :tag_id, options_for_select(tags) %>
+    <%= f.submit "Delete Tags", class: 'btn btn-primary' %>
+
+<% end %>

@@ -6,17 +6,45 @@ class DirectivesTagsController < ApplicationController
     if directive.directives_tags.create(directive_id: params[:directive_id], 
                                         tag_id: tag_id)
       flash[:success] = "Link created!"
-      redirect_to root_url
+      type = directive.type
+      if type == "Resolution"
+        redirect_to public_resolutions_path
+      elsif type == "PersonalDirective"
+        redirect_to personal_directives_path
+      elsif type == "CrisisUpdate"
+        redirect_to crisis_updates_path
+      elsif type == "Note"
+        redirect_to notes_path
+      else
+        redirect_to root_url
+      end
     else
       flash[:error] = "Fail"
-      render 'static_pages/personal_directives'
+      render 'personal_directives/personal_directives'
     end
   end
   
   def destroy
-    DirectivesTag.find_by(id: params)
-    flash[:success] = "Directive deleted"
-    redirect_to root_url
+    directive = Directive.find_by(id: params[:directive_id])
+    if directive.directives_tags.find_by(tag_id: params[:directives_tag][:tag_id]).destroy
+      flash[:success] = "Tags deleted"
+      type = directive.type
+      if type == "Resolution"
+        redirect_to public_resolutions_path
+      elsif type == "PersonalDirective"
+        redirect_to personal_directives_path
+      elsif type == "CrisisUpdate"
+        redirect_to crisis_updates_path
+      elsif type == "Note"
+        redirect_to notes_path
+      else
+        redirect_to root_url
+      end
+    else
+      flash[:error] = "Tag deletion failed"
+      redirect_to request.referrer
+    end
+
   end
   
   def index

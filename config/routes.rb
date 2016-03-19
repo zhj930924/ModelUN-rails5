@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   get "private_resolutions" => 'resolutions#private_resolutions'
   get "resolution_management" => 'resolutions#resolution_management'
   delete 'resolution_signings' => 'resolution_signings#destroy'
+  delete 'directives_tags' => 'directives_tags#destroy'
+
 
 
 

@@ -32,7 +32,7 @@
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
   <span class= "content">
-    <% if (current_user[:type] == "Crisis" || directive.users.include?(current_user)) && directive[:editable] == true &&
+    <% if directive.users.include?(current_user) && directive[:editable] == true &&
        !directive.comments.any? %>
       <b>Avaliable Actions: </b>
       <%= link_to "delete", directive, method: :delete,
