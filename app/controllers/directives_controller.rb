@@ -60,7 +60,7 @@ class DirectivesController < ApplicationController
 
   private
       def directive_params
-          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :editable)
+          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :status, :editable)
       end
 
   

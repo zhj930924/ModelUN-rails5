@@ -98,6 +98,6 @@ class ResolutionsController < DirectivesController
 
   private
       def directive_params
-          params.require(:resolution).permit(:content, :picture, :title, :type, :editable, :passed, :public)
+          params.require(:resolution).permit(:content, :picture, :title, :type, :editable, :passed, :status, :public)
       end
 end
