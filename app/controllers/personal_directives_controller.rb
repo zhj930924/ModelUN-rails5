@@ -9,7 +9,7 @@ class PersonalDirectivesController < DirectivesController
       if pd.save
         flash[:success] = "Directive created!"
         current_user.issue_directives.create(directive_id: pd.id)
-        redirect_to personal_directive_path
+        redirect_to personal_directives_path
       else
         flash[:error] = "Fail"
         redirect_to request.referrer
