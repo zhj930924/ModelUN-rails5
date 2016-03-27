@@ -24,7 +24,9 @@ class Directive < ActiveRecord::Base
             :search_query,
             :with_tag_name,
             :with_user,
-            :with_directive_type
+            :with_directive_type,
+            :with_comments,
+            :with_directive_status
         ]
     )
     
@@ -60,18 +62,31 @@ class Directive < ActiveRecord::Base
     
 
     scope :with_tag_name, lambda { |tag_id|
+      return nil if tag_id == [""]
       where(tags: {id: tag_id}).joins(:tags)
     }
     
     scope :with_user, lambda { |user_id|
+      return nil if user_id == [""]
       where(users: {id: user_id}).joins(:users)
     }
     
     scope :with_directive_type, lambda { |type|
+      return nil if type == [""]
       where(directives: {type: type})
-    }
-    
 
+    }
+
+    scope :with_comments, lambda {
+      where(
+          'EXISTS (SELECT 1 from comments WHERE directives.id = comments.directive_id)'
+      )
+    }
+
+    scope :with_directive_status, lambda { |status|
+      return nil if status == [""]
+      where(directives: {status: status})
+    }
     
 
 end

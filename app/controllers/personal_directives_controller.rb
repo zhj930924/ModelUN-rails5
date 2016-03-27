@@ -44,6 +44,7 @@ class PersonalDirectivesController < DirectivesController
     ) or return
     filter_result = @filterrific.find
 
+    comments = PersonalDirective.with_comments
 
     if user_signed_in?
       @user = current_user
@@ -73,7 +74,11 @@ class PersonalDirectivesController < DirectivesController
           end
         end
       end
-      @pd_feed = @pd_feed.paginate(page: params[:pd_page])
+      if params[:reply]
+        @pd_feed = (@filterrific.find - comments).paginate(page: params[:page])
+      else
+        @pd_feed = @pd_feed.paginate(page: params[:pd_page])
+      end
     else redirect_to root_url
     end
   end

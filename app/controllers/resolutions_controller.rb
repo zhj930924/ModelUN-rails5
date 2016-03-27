@@ -43,12 +43,24 @@ class ResolutionsController < DirectivesController
   end
 
   def public_resolutions
+    comments = Resolution.with_comments
+    @filterrific = initialize_filterrific(
+        Directive,
+        params[:filterrific],
+        select_options: {
+            with_tag_name: Tag.options_for_select,
+            with_user: User.options_for_select,
+            with_directive_status: ["On The Floor", "Draft", "Passed!", "Failed!"]
+        }
+    ) or return
+    filter_result = @filterrific.find
+
     if user_signed_in?
       @user = current_user
       if current_user[:type] == "Delegate"
         resolutions_ids = "SELECT directive_id FROM directives_users
                                   WHERE user_id = :user_id"
-        @rs_feed = Resolution.where("public = 't'").paginate(page: params[:rs_page])
+        sql_result = Resolution.where("public = 't'")
         @resolution = current_user.created_resolutions.build
 
       elsif current_user[:type] == "Crisis"
@@ -56,10 +68,17 @@ class ResolutionsController < DirectivesController
         committee_directive_ids = "SELECT directive_id FROM directives_users
                         WHERE user_id IN (#{user_ids}) AND type IN ('ResolutionSponsorship',
                         'ResolutionSigning', 'ResolutionCreation')"
-        @rs_feed = Resolution.where("id IN (#{committee_directive_ids})",
-                                    crisis_id: current_user[:id]).paginate(page: params[:rs_page])
+        sql_result = Resolution.where("id IN (#{committee_directive_ids}) AND public = 't'",
+                                    crisis_id: current_user[:id])
 
       end
+
+      if params[:reply]
+        @rs_feed = ((filter_result & sql_result) - comments).paginate(page: params[:page])
+      else
+        @rs_feed = (filter_result & sql_result).paginate(page: params[:page])
+      end
+
     else redirect_to root_url
     end
   end

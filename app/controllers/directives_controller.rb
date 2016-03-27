@@ -36,17 +36,27 @@ class DirectivesController < ApplicationController
   end
   
   def index
+    comments = Directive.with_comments
+
     @filterrific = initialize_filterrific(
       Directive,
       params[:filterrific],
       select_options: {
         with_tag_name: Tag.options_for_select,
         with_user: User.options_for_select,
-        with_directive_type: ["PersonalDirective", "CrisisUpdate", "Note", "Resolution"]
+        with_directive_type: ["PersonalDirective", "CrisisUpdate", "Note", "Resolution"],
+        with_directive_status: ["On The Floor", "Draft", "Passed!", "Failed!"]
       }
     ) or return
-    @feed_items = @filterrific.find.page(params[:page])
-    
+    if params[:reply]
+      @feed_items = (@filterrific.find - comments).paginate(page: params[:page])
+    else
+      @feed_items = @filterrific.find.page(params[:page])
+    end
+
+
+
+
     respond_to do |format|
       format.html
       format.js
