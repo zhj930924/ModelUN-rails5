@@ -5,7 +5,7 @@ class NotesController < DirectivesController
                                           content: params[:note][:content],
                                           title: params[:note][:title])
       flash[:success] = "Crisis Note Created!"
-      redirect_to root_url
+      redirect_to notes_path
     else
       flash[:error] = "Fail"
       render 'static_pages/notes'

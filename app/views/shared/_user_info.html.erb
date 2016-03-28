@@ -1,7 +1,7 @@
 <h1><%= current_user.name %></h1>
 <span><%= current_user.position %></span>
 <span><%= current_user.committee %></span>
-<span><%= link_to "my mailbox", mailbox_inbox_path %></span>
+<span><%= link_to "my mailbox", mailbox_inbox_path %>(unread: <%= unread_messages_count %>)</span>
 <span><%= link_to "personal directives", personal_directives_path %></span>
 <span><%= link_to "public resolutions", public_resolutions_path %></span>
 <span><%= link_to "private resolutions", private_resolutions_path if current_user[:type] == "Delegate" %></span>

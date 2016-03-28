@@ -60,16 +60,16 @@ class ResolutionsController < DirectivesController
       if current_user[:type] == "Delegate"
         resolutions_ids = "SELECT directive_id FROM directives_users
                                   WHERE user_id = :user_id"
-        sql_result = Resolution.where("public = 't'")
+        sql_result = Resolution.with_committees(current_user.committee).where("public = 't'")
         @resolution = current_user.created_resolutions.build
 
       elsif current_user[:type] == "Crisis"
-        user_ids = "SELECT delegate_id FROM manages WHERE crisis_id = :crisis_id"
+        user_ids = "SELECT users.id FROM users WHERE committee = :committee"
         committee_directive_ids = "SELECT directive_id FROM directives_users
                         WHERE user_id IN (#{user_ids}) AND type IN ('ResolutionSponsorship',
                         'ResolutionSigning', 'ResolutionCreation')"
-        sql_result = Resolution.where("id IN (#{committee_directive_ids}) AND public = 't'",
-                                    crisis_id: current_user[:id])
+        sql_result = Resolution.with_committees(current_user.committee).where("directives.id IN (#{committee_directive_ids}) AND public = 't'",
+                                    committee: current_user[:committee])
 
       end
 
@@ -89,21 +89,9 @@ class ResolutionsController < DirectivesController
       if current_user[:type] == "Delegate"
         resolutions_ids = "SELECT directive_id FROM directives_users
                                   WHERE user_id = :user_id"
-        @rs_feed = Resolution.where("id IN (#{resolutions_ids} and public = 'f')",
+        @rs_feed = Resolution.with_committees(current_user.committee).where("directives.id IN (#{resolutions_ids} and public = 'f')",
                                     user_id: current_user[:id]).paginate(page: params[:rs_page])
         @resolution = current_user.created_resolutions.build
-      end
-    else redirect_to root_url
-    end
-  end
-
-  def crisis_updates
-    if user_signed_in?
-      @user = current_user
-      @cs_feed = CrisisUpdate.all.paginate(page: params[:cs_page])
-
-      if current_user[:type] == "Crisis"
-        @directive = current_user.crisis_updates.build
       end
     else redirect_to root_url
     end

@@ -38,6 +38,9 @@ class DirectivesController < ApplicationController
   def index
     comments = Directive.with_comments
 
+
+    committee_directives = Directive.with_committees(current_user.committee)
+
     @filterrific = initialize_filterrific(
       Directive,
       params[:filterrific],
@@ -48,10 +51,13 @@ class DirectivesController < ApplicationController
         with_directive_status: ["On The Floor", "Draft", "Passed!", "Failed!"]
       }
     ) or return
+
+    committee_only = @filterrific.find & committee_directives
+
     if params[:reply]
-      @feed_items = (@filterrific.find - comments).paginate(page: params[:page])
+      @feed_items = (committee_only - comments).paginate(page: params[:page])
     else
-      @feed_items = @filterrific.find.page(params[:page])
+      @feed_items = committee_only.paginate(page: params[:page])
     end
 
 

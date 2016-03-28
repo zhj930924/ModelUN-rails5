@@ -1,12 +1,11 @@
-<% if user_signed_in? && !@user.nil? %>
-    <% provide(:title, @user.position) %>
-    <% @user = current_user %>
+<% if user_signed_in? %>
+    <% provide(:title, current_user.position) %>
     <div class="row">
       <aside class="col-md-3">
         <section class="user_info">
             <%= render 'shared/user_info' %>
         </section>
-      <% if current_user[:type] == "Crisis" %>
+
         <%= form_for_filterrific @filterrific, html: { id: 'filterrific-no-ajax-auto-submit' } do |f| %>
             <div>
               Search
@@ -15,6 +14,7 @@
                       :search_query,
                   ) %>
             </div>
+            <% if current_user[:type] == "Crisis" %>
             <div>
               Tags
               <%= f.select(
@@ -31,6 +31,7 @@
                       { include_hidden: false, include_blank: '- Any -' }, multiple:true, class: "chosen-select form-control"
                   ) %>
             </div>
+            <% end %>
             <div>
               Directive Status
               <%= f.select(
@@ -39,14 +40,10 @@
                       { include_hidden: false, include_blank: '- Any -' }, multiple:true, class: "chosen-select form-control"
                   ) %>
             </div>
-            <div>
-              Unreplied Directives?
-              <%= check_box_tag('reply', value: "false", checked: false) %>
-            </div>
             <%= f.submit "submit" %>
 
             <% end %>
-      <% end %>
+
       </aside>
       <div class="col-md-9">
         <h3>Public Resolutions(<%= @rs_feed.count %>)</h3>

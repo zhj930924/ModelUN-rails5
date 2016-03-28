@@ -1,6 +1,10 @@
 <% if @feed_items.any? %>
   <ol class="directives">
     <% @feed_items.each do |item| %>
+        <div class = "content">
+          <b>Type: </b>
+          <%= item.type %>
+        </div>
     <% if item.type == "Resolution" %>
         <%= render partial: "resolutions/public_resolutions", locals: {directive: item} %>
     <% elsif item.type == "PersonalDirective" %>

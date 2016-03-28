@@ -1,7 +1,14 @@
 <li id="directive-<%= directive.id %>">
+  <% @directive = directive %>
 
   <span class="content">
+    <b>Status: </b>
   <% if current_user[:type] == "Crisis" %>
+    <%= link_to "(make public)", directive_path(@directive, :directive => {:public => true}),
+                :method => :put,
+                :confirm => "Are you sure?" if !directive.public %>
+        <%= "Public" if directive.public %>
+        <%= "Private" if !directive.public %>
   <span class="content">
     <b>Tags(<%= link_to "new tags",
                         :controller => "tags",

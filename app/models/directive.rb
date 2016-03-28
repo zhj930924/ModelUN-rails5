@@ -87,6 +87,16 @@ class Directive < ActiveRecord::Base
       return nil if status == [""]
       where(directives: {status: status})
     }
+
+    scope :with_committees, lambda {|committee|
+      return nil if committee == [""]
+      where(users: {committee: committee}).joins(:users)
+    }
+
+    scope :with_public, lambda { |public|
+      return nil if public == [""]
+      where(directives: {public: public})
+    }
     
 
 end

@@ -33,58 +33,52 @@ class PersonalDirectivesController < DirectivesController
   end
 
   def index
-
-    @filterrific = initialize_filterrific(
-        PersonalDirective,
-        params[:filterrific],
-        select_options: {
-            with_tag_name: Tag.options_for_select,
-            with_user: User.options_for_select
-        }
-    ) or return
-    filter_result = @filterrific.find
-
-    comments = PersonalDirective.with_comments
-
     if user_signed_in?
-      @user = current_user
+      @filterrific = initialize_filterrific(
+          PersonalDirective,
+          params[:filterrific],
+          select_options: {
+              with_tag_name: Tag.options_for_select,
+              with_user: User.options_for_select
+          }
+      ) or return
+      filter_result = @filterrific.find
+
+      comments = PersonalDirective.with_comments
+
+
+
       if current_user[:type] == "Delegate"
         personal_directive_ids = "SELECT directive_id FROM directives_users
-                          WHERE user_id = :id AND type = 'IssueDirective'"
-        sql_result = PersonalDirective.where("id IN (#{personal_directive_ids})",
-                                             id: current_user[:id]).paginate(page: params[:pd_page])
-        @pd_feed = []
-        filter_result.each do |result|
-          if sql_result.include?(result)
-            @pd_feed << result
-          end
-        end
+                          WHERE user_id = :user_id AND type = 'IssueDirective'"
+        sql_result = PersonalDirective.with_committees(current_user.committee).where("directives.id IN (#{personal_directive_ids})",
+                                             user_id: current_user[:id])
+
         @directive = current_user.directives.build(type: "PersonalDirective")
 
       elsif current_user[:type] == "Crisis"
-        user_ids = "SELECT delegate_id FROM manages WHERE crisis_id = :crisis_id"
+        user_ids = "SELECT users.id FROM users WHERE committee = :committee"
         personal_directive_ids = "SELECT directive_id FROM directives_users
                           WHERE user_id IN (#{user_ids}) AND type = 'IssueDirective'"
-        sql_result = PersonalDirective.where("id IN (#{personal_directive_ids})",
-                                             crisis_id: current_user[:id]).paginate(page: params[:pd_page])
-        @pd_feed = []
-        filter_result.each do |result|
-          if sql_result.include?(result)
-            @pd_feed << result
-          end
-        end
+        sql_result = PersonalDirective.with_committees(current_user.committee).where("directives.id IN (#{personal_directive_ids})",
+                                             committee: current_user[:committee])
+
       end
+
+      @pd_feed = sql_result & filter_result
       if params[:reply]
-        @pd_feed = (@filterrific.find - comments).paginate(page: params[:page])
+        @pd_feed = (@pd_feed - comments).paginate(page: params[:page])
       else
-        @pd_feed = @pd_feed.paginate(page: params[:pd_page])
+        @pd_feed = @pd_feed.paginate(page: params[:page])
       end
+
+
     else redirect_to root_url
     end
   end
 
   private
     def directive_params
-      params.require(:personal_directive).permit(:content, :picture, :title, :type)
+      params.require(:personal_directive).permit(:content, :picture, :title, :type, :status, :editable)
     end
 end
