@@ -87,7 +87,7 @@ class ResolutionsController < DirectivesController
     if user_signed_in?
       @user = current_user
       if current_user[:type] == "Delegate"
-        resolutions_ids = "SELECT directive_id FROM directives_users
+        resolutions_ids = "SELECT DISTINCT directive_id FROM directives_users
                                   WHERE user_id = :user_id"
         @rs_feed = Resolution.with_committees(current_user.committee).where("directives.id IN (#{resolutions_ids} and public = 'f')",
                                     user_id: current_user[:id]).paginate(page: params[:rs_page])
