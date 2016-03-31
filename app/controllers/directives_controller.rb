@@ -47,7 +47,7 @@ class DirectivesController < ApplicationController
       params[:filterrific],
       select_options: {
         with_tag_name: Tag.options_for_select,
-        with_user: User.options_for_select,
+        with_user: Delegate.options_for_select,
         with_directive_type: ["PersonalDirective", "CrisisUpdate", "Note", "Resolution"],
         with_directive_status: ["On The Floor", "Draft", "Passed!", "Failed!"]
       }

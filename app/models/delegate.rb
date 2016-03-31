@@ -29,7 +29,10 @@ class Delegate < User
     
     has_many :manages, foreign_key: "delegate_id"
     has_many :crises, through: :manages
-                                
+
+    def self.options_for_select
+        order('LOWER(position)').map { |e| [e.position, e.id] }
+    end
     
     
 
