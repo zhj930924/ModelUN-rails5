@@ -21,7 +21,7 @@ class PersonalDirectivesController < DirectivesController
   def update
     if current_user[:type] == "Delegate"
       @directive = PersonalDirective.find_by(id: params[:id])
-      @directive.update_attributes(:title => params[:personal_directive][:title], :content => params[:personal_directive][:content])
+      @directive.update_attributes(directive_params)
       redirect_to personal_directives_path
     else
       flash[:error] = "Not editable"
