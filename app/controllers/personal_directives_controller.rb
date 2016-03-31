@@ -34,13 +34,18 @@ class PersonalDirectivesController < DirectivesController
   end
 
   def index
+
+    committee_users = "SELECT users.id FROM users WHERE users.committee = :committee"
+    relevant_directives = "SELECT directive_id FROM directives_users WHERE user_id in (#{committee_users})"
+    relevant_tags = "SELECT tag_id FROM directives_tags WHERE directive_id in (#{relevant_directives})"
+    tags = Tag.where("tags.id in (#{relevant_tags})",committee: current_user.committee)
     if user_signed_in?
       @filterrific = initialize_filterrific(
           PersonalDirective,
           params[:filterrific],
           select_options: {
-              with_tag_name: Tag.options_for_select,
-              with_user: User.options_for_select
+              with_tag_name: tags.options_for_select,
+              with_user: Delegate.where(committee: current_user.committee).options_for_select,
           }
       ) or return
       filter_result = @filterrific.find

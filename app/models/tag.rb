@@ -34,7 +34,8 @@ class Tag < ActiveRecord::Base
         raise(ArgumentError, "Invalid sort option: #{ sort_option.inspect }")
       end
     }
-    
+
+
     def self.options_for_select
       order('LOWER(tag)').map { |e| [e.tag, e.id] }
     end
