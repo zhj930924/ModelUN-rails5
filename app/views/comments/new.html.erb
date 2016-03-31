@@ -3,7 +3,8 @@
 <% if @comment.parent %>
   <%= render 'comment', comment: @comment.parent, from_reply_form: true %>
 <% elsif params[:directive_id] %>
-  <%= render inline: Directive.find_by(id: params[:directive_id]).content %>
+
+
 <% end %>
 
 <%= form_for(@comment) do |f| %>

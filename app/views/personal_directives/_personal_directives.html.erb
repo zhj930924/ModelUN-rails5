@@ -5,7 +5,24 @@
     <%= user.position %>
     <% end %>
   </span>
+  <% if current_user.type == "Crisis" %>
+    <% if !directive.claim %>
+    <b>Unclaimed(<%= link_to "claim", directive_path(directive, :directive => {:claim => true}),
+                          :method => :put,
+                          :confirm => "Are you sure?" %>):</b>
+    <% else %>
+    <b>Claimed</b>
+    <% end %>
 
+    <span class="content">
+      <% if !directive.quality.nil? %>
+        <b>Quality Rating: </b>
+          <%= directive.quality %>
+      <% else %>
+        <%= render 'personal_directives/score', :directive_id => directive.id %>
+      <% end %>
+    </span>
+  <% end %>
   <span class= "content">
     <b>Posted: </b>
     <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)') , :format => :short  %>
@@ -32,8 +49,8 @@
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
   <span class= "content">
-    <% if directive.users.include?(current_user) && directive[:editable] == true &&
-       !directive.comments.any? %>
+    <% if (directive.users.include?(current_user) && directive[:editable] == true &&
+       !directive.comments.any?) or current_user.admin == true %>
       <b>Avaliable Actions: </b>
       <%= link_to "delete", directive, method: :delete,
                                        data: { confirm: "You sure?" } %>

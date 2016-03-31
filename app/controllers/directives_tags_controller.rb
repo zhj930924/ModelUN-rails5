@@ -1,5 +1,5 @@
 class DirectivesTagsController < ApplicationController
-  
+  before_action :authenticate_user!
   def create
     directive = Directive.find_by(id: params[:directive_id])
     tag_id = Tag.find_by(tag: params[:directives_tag][:tag]).id

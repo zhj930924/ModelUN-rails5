@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.text     "content"
     t.string   "type"
     t.boolean  "editable",   default: true
+    t.boolean  "claim",      default: false
     t.boolean  "public",     default: false
+    t.integer  "quality"
     t.string   "status",     default: "Draft"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -128,21 +130,21 @@ ActiveRecord::Schema.define(version: 20160224210552) do
     t.string   "name"
     t.string   "committee"
     t.string   "position"
-    t.text     "dossier"
+    t.text     "maps"
     t.string   "email"
     t.string   "remember_token"
-    t.boolean  "admin"
+    t.boolean  "admin",                  default: false
     t.string   "type"
     t.string   "activation_digest"
     t.boolean  "activated"
     t.datetime "activated_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"

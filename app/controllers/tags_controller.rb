@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-    
+    before_action :authenticate_user!
     def index
         @filterrific = initialize_filterrific(
             Tag,

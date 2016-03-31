@@ -1,10 +1,10 @@
 class ResolutionSponsorshipsController < ApplicationController
-    
+    before_action :authenticate_user!
     def create
         ResolutionSponsorship.create(directive_id: params[:directive_id], user_id: params[:resolution_sponsorship][:user_id])
         respond_to do |format|
             format.html { redirect_to request.referrer}
-            format.js
+            format.js {render inline: "location.reload();" }
         end
     end
     
@@ -21,7 +21,7 @@ class ResolutionSponsorshipsController < ApplicationController
         end
         respond_to do |format|
             format.html { redirect_to request.referrer }
-            format.js
+            format.js {render inline: "location.reload();" }
         end
     end
 

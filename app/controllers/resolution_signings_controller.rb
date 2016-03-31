@@ -1,5 +1,5 @@
 class ResolutionSigningsController < ApplicationController
-    
+    before_action :authenticate_user!
     def create
         if params[:resolution_signing]
             ResolutionSigning.create(directive_id: params[:directive_id], user_id: params[:resolution_signing][:user_id])

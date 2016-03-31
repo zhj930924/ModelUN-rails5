@@ -1,5 +1,5 @@
 <% if user_signed_in? && !current_user.nil? %>
-
+    <meta http-equiv="refresh" content="60" />
     <% provide(:title, current_user.name) %>
     <% @user = current_user %>
     <div class="row">

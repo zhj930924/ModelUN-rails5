@@ -1,5 +1,7 @@
 <% if user_signed_in? %>
-  <% if current_user[:type] == "Delegate" %>
+    <meta http-equiv="refresh" content="60" />
+
+    <% if current_user[:type] == "Delegate" %>
     <div class="row">
       <aside class="col-md-2">
         <section class="user_info">
@@ -36,6 +38,7 @@
         <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;" />
         <ol class="directives">
           <%= render partial: "resolutions/public_resolutions", collection: @rs_feed, as: 'directive' %>
+          <%= will_paginate @rs_feed, :param_name => 'rs_page' %>
         </ol>
       </div>
     </div>

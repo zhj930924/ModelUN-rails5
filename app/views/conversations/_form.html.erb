@@ -1,5 +1,7 @@
 <%= form_for :conversation, url: :conversations, html: { class: "" } do |f| %>
-    <% options = Delegate.where.not(id: current_user[:id]) %>
+    <% options = Delegate.where(committee: current_user.committee).where.not(id: current_user[:id]) %>
+    <% # options << Crisis.where(admin: true) %>
+
     <div class="form-group">
       <%= f.label :recipients %>
       <%= f.select(:recipients, options.collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>

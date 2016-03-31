@@ -38,7 +38,7 @@
 
 <%= form_for(@sponsorship) do |f| %>
   <% non_sponsors = [] %> 
-	<% Delegate.all.each do |s| %>
+	<% Delegate.where(committee: current_user.committee).all.each do |s| %>
 	    <% if !directive.sponsors.include?(s) && !directive.signers.include?(s) && 
 	    !directive.creators.include?(s) %>
 	    <% non_sponsors << [s.position, s.id] %>
@@ -68,7 +68,7 @@
 
 <%= form_for(@signature) do |f| %>
   <% non_signers = [] %> 
-	<% Delegate.all.each do |s| %>
+	<% Delegate.where(committee: current_user.committee).all.each do |s| %>
 	    <% if !directive.sponsors.include?(s) && !directive.signers.include?(s) && 
 	    !directive.creators.include?(s) %>
 	    <% non_signers << [s.position, s.id] %>

@@ -1,5 +1,5 @@
 class ResolutionsController < DirectivesController
-
+  before_action :authenticate_user!
   def new
     @resolution = current_user.created_resolutions.build
   end
@@ -74,9 +74,9 @@ class ResolutionsController < DirectivesController
       end
 
       if params[:reply]
-        @rs_feed = ((filter_result & sql_result) - comments).paginate(page: params[:page])
+        @rs_feed = ((filter_result & sql_result) - comments).paginate(page: params[:rs_page], per_page: 5)
       else
-        @rs_feed = (filter_result & sql_result).paginate(page: params[:page])
+        @rs_feed = (filter_result & sql_result).paginate(page: params[:rs_page], per_page: 5)
       end
 
     else redirect_to root_url
@@ -87,10 +87,10 @@ class ResolutionsController < DirectivesController
     if user_signed_in?
       @user = current_user
       if current_user[:type] == "Delegate"
-        resolutions_ids = "SELECT DISTINCT directive_id FROM directives_users
-                                  WHERE user_id = :user_id"
-        @rs_feed = Resolution.with_committees(current_user.committee).where("directives.id IN (#{resolutions_ids} and public = 'f')",
-                                    user_id: current_user[:id]).paginate(page: params[:rs_page])
+        resolutions_ids = "SELECT directive_id FROM directives_users
+                                  WHERE user_id = :user_id AND type != 'ResolutionRequest'"
+        @rs_feed = Resolution.with_committees(current_user.committee).distinct.where("directives.id IN (#{resolutions_ids} and public = 'f')",
+                                    user_id: current_user[:id]).paginate(page: params[:rs_page], per_page: 5)
         @resolution = current_user.created_resolutions.build
       end
     else redirect_to root_url

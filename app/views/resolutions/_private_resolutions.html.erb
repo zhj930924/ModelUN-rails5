@@ -18,15 +18,11 @@
     <%= creator.position %>,
     <% end %>
     <br>
+
     <% unless directive.creators.include?(current_user) %>
   <div id="sponsor_form">
-    <% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
-        <%= render :partial => "resolution_requests/unrequest", :locals => {directive_id: directive[:id]} %>
-    <% elsif !directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) %>
-        <%= render :partial => "resolution_requests/request", :locals => {directive_id: directive[:id]} %>
-    <% elsif directive.sponsors.include?(current_user) %>
+    <% if directive.sponsors.include?(current_user) %>
         <%= render :partial => "resolution_sponsorships/unsponsor", :locals => {directive_id: directive[:id]} %>
-    <% end %>
   </div>
     <% else %>
       <b>Sponsors</b>:
@@ -35,6 +31,8 @@
         <% end %>
         <br>
     <% end %>
+    <% end %>
+  <% if directive.creators.include?(current_user) %>
   <span class="content">
     <b>Sponsorship Requests: </b>
     <% directive.requestors.each do |sponsor| %>
@@ -42,6 +40,7 @@
             <%= sponsor.position %> ,
           <% end %>
       <% end %>
+  <% end %>
   </span>
     <% unless directive.creators.include?(current_user) %>
   <div id="follow_form">
@@ -73,32 +72,39 @@
   </span>
   <span class="content">
     <b>Avaliable Actions:</b>
-    <% if directive.creators.include?(current_user) %>
+    <% if directive.creators.include?(current_user) or current_user.admin == true  %>
 
       <%= link_to "delete", directive, method: :delete,
                   data: { confirm: "You sure?" } %>,
         <%= link_to "edit",
-                    :controller => "directives",
+                    {:controller => "directives",
                     :action => "edit",
-                    :id => directive.id %>,
+                    :id => directive.id},
+                    :target => "_blank"
+                    %>,
     <% end %>
     <% if directive.sponsors.include?(current_user) or directive.creators.include?(current_user) %>
     <%= link_to "friendly amendaments",
-                :controller => "comments",
+                {:controller => "comments",
                 :action => "new",
                 :directive_id => directive.id,
-                :function => "Friendly Amendaments" %>,
+                :function => "Friendly Amendaments"},
+                :target => "_blank" %>,
     <% end %>
     <%= link_to "unfriendly amendaments",
-                :controller => "comments",
+                {:controller => "comments",
                 :action => "new",
                 :directive_id => directive.id,
-                :function => "Unfriendly Amendaments" %>,
+                :function => "Unfriendly Amendaments"},
+                :target => "_blank"%>,
     <% if directive.creators.include?(current_user) %>
     <%= link_to "resolution management",
-                :controller => "resolutions",
+                {:controller => "resolutions",
                 :action => "resolution_management",
-                :directive_id => directive.id %>
+                :directive_id => directive.id},
+                :target => "_blank"
+                %>
+
     <% end %>
   </span>
 
@@ -111,9 +117,10 @@
 
     <span>
       <%= link_to "new tags",
-                  :controller => "tags",
+                  {:controller => "tags",
                   :action => "new",
-                  :directive_id => directive.id %>
+                  :directive_id => directive.id},
+                  :target => "_blank" %>
     </span>
   <% end %>
   <span class="content">

@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @comments = Comment.hash_tree(limit_depth: 2)
     @filterrific = initialize_filterrific(

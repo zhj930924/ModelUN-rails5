@@ -10,12 +10,7 @@ class UsersController < ApplicationController
 
   def index
     
-    @users = User.where.not("id = ?",current_user.id).order("created_at DESC").paginate(page: params[:page])
-    if (current_user[:type] == "Delegate")
-      @feed_items = current_user.personal_directives.paginate(page: params[:page])
-    elsif(current_user[:type] == "Crisis")
-      @feed_items = current_user.crisis_updates.paginate(page: params[:page])
-    end
+    @users = Delegate.where("committee= ?", current_user.committee).where.not("id = ?",current_user.id).order("created_at DESC").paginate(page: params[:page])
     
   end
   
@@ -57,18 +52,19 @@ class UsersController < ApplicationController
   end
   
   
-#   def update
-#     if @user.update_attributes(user_params)
-#       flash[:success] = "Profile updated"
-#       redirect_to @user
-#     else
-#       render 'edit'
-#     end
-#   end
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = "Updated"
+      redirect_to request.referer
+    else
+      render root_url
+    end
+    render root_url
+  end
 
   private
     def user_params
-      params.require(:user).permit(:name, :email, :password, :type, :password_confirmation, :committee, :position)
+      params.require(:user).permit(:name, :email, :password, :type, :password_confirmation, :committee, :position, :claim, :quality)
     end
     
 #     # Before filters

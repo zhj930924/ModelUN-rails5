@@ -47,11 +47,11 @@ Rails.application.routes.draw do
   get "crisis_updates" => 'crisis_updates#crisis_updates'
   get "public_resolutions" => 'resolutions#public_resolutions'
   get "private_resolutions" => 'resolutions#private_resolutions'
-  get "static_pages/dossier" => 'static_pages#dossier'
+  get "documents" => 'static_pages#documents'
+  get 'static_pages/download' => 'static_pages#download'
   get "resolution_management" => 'resolutions#resolution_management'
   delete 'resolution_signings' => 'resolution_signings#destroy'
   delete 'directives_tags' => 'directives_tags#destroy'
-
 
 
 
@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   resources :resolution_sponsorships, only: [:create, :destroy]
   resources :resolution_signings, only: [:create, :destroy]
   resources :resolution_requests, only: [:create, :destroy]
+
   #root to: "static_pages#home"
   
 

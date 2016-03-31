@@ -18,12 +18,12 @@
 
 <div class="form-group">
   <%= f.label :sponsors %>
-  <%= f.select(:sponsors, Delegate.where.not(id: current_user.id).collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
+  <%= f.select(:sponsors, Delegate.where(committee: current_user.committee).where.not(id: current_user.id).collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
 </div>
 
 <div class="form-group">
   <%= f.label :signers %>
-  <%= f.select(:signers, Delegate.where.not(id: current_user.id).collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
+  <%= f.select(:signers, Delegate.where(committee: current_user.committee).where.not(id: current_user.id).collect {|p| [ p.position, p.id ] }, {}, { multiple: true , class: "chosen-select form-control" })%>
 </div>
 
 <div class="field">

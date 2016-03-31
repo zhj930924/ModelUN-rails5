@@ -1,4 +1,5 @@
 class PersonalDirectivesController < DirectivesController
+  before_action :authenticate_user!
   def new
     @personal_directives = current_user.personal_directives.build
   end
@@ -21,7 +22,7 @@ class PersonalDirectivesController < DirectivesController
     if current_user[:type] == "Delegate"
       @directive = PersonalDirective.find_by(id: params[:id])
       @directive.update_attributes(:title => params[:personal_directive][:title], :content => params[:personal_directive][:content])
-      redirect_to personal_directives_pathh
+      redirect_to personal_directives_path
     else
       flash[:error] = "Not editable"
       redirect_to request.referrer
@@ -67,9 +68,9 @@ class PersonalDirectivesController < DirectivesController
 
       @pd_feed = sql_result & filter_result
       if params[:reply]
-        @pd_feed = (@pd_feed - comments).paginate(page: params[:page])
+        @pd_feed = (@pd_feed - comments).paginate(page: params[:pd_page], per_page: 10)
       else
-        @pd_feed = @pd_feed.paginate(page: params[:page])
+        @pd_feed = @pd_feed.paginate(page: params[:pd_page], per_page: 10)
       end
 
 
@@ -79,6 +80,6 @@ class PersonalDirectivesController < DirectivesController
 
   private
     def directive_params
-      params.require(:personal_directive).permit(:content, :picture, :title, :type, :status, :editable)
+      params.require(:personal_directive).permit(:content, :picture, :title, :type, :status, :editable, :quality, :claim)
     end
 end

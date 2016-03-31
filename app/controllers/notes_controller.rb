@@ -1,5 +1,5 @@
 class NotesController < DirectivesController
-    
+  before_action :authenticate_user!
   def create
     if current_user.notes.create(type: params[:note][:type], 
                                           content: params[:note][:content],

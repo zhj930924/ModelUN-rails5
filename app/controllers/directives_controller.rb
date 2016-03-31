@@ -1,11 +1,12 @@
 class DirectivesController < ApplicationController
-  
+  before_action :authenticate_user!
   def update
     @directive = Directive.find_by(id: params[:id])
     if @directive.update_attributes(directive_params)
       redirect_to request.referrer
     else
       flash[:error] = "Wrong"
+      redirect_to request.referrer
     end
   end
   
@@ -76,7 +77,7 @@ class DirectivesController < ApplicationController
 
   private
       def directive_params
-          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :status, :editable)
+          params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :status, :editable, :claim, :quality)
       end
 
   
