@@ -19,7 +19,7 @@ class PersonalDirectivesController < DirectivesController
   end
   
   def update
-    if current_user[:type] == "Delegate"
+    if current_user[:type] == "Delegate" or current_user.admin == true
       @directive = PersonalDirective.find_by(id: params[:id])
       @directive.update_attributes(directive_params)
       redirect_to personal_directives_path
