@@ -1,5 +1,5 @@
 <li id="directive-<%= directive.id %>">
-  <span class="content">
+  <span class = "content">
     <% @directive = directive %>
 
     <b>Status<%= link_to "(make private)", directive_path(@directive, :directive => {:public => false}),
@@ -21,21 +21,19 @@
     <br>
 
     <% unless directive.creators.include?(current_user) %>
-        <div id="sponsor_form">
-          <% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= render :partial => "resolution_requests/unrequest", :locals => {directive_id: directive[:id]} %>
+        <div id="content">
+          <b>Sponsors</b>(<% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
+              <%= link_to "unrequest", resolution_requests_path(:directive_id => directive.id), :method => :delete %>
           <% elsif !directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= render :partial => "resolution_requests/request", :locals => {directive_id: directive[:id]} %>
+              <%= link_to "request", resolution_requests_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>
           <% elsif directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= render :partial => "resolution_sponsorships/unsponsor", :locals => {directive_id: directive[:id]} %>
-              </div>
-          <% else %>
-            <b>Sponsors</b>:
-            <% directive.sponsors.each do |sponsor| %>
-                <%= sponsor.position %>
-            <% end %>
-            <br>
+              <%= link_to "unsponsor", resolution_sponsorships_path(:directive_id => directive.id), :method => :delete  %>
+          <% end %>):
+          <% directive.sponsors.each do |sponsor| %>
+              <%= sponsor.position %>,
           <% end %>
+          <br>
+        </div>
     <% end %>
 
     <% if directive.creators.include?(current_user) %>
@@ -43,34 +41,35 @@
         <b>Sponsorship Requests: </b>
         <% directive.requestors.each do |sponsor| %>
               <% if !directive.sponsors.include?(sponsor) %>
-                <%= sponsor.position %> ,
+                <%= sponsor.position %>,
               <% end %>
           <% end %>
       </span>
     <% end %>
 
     <% unless directive.creators.include?(current_user) %>
-        <div id="follow_form">
-      <% if directive.signers.include?(current_user) && current_user.type == "Delegate" %>
-          <%= render :partial => "resolution_signings/unsign", :locals => {directive_id: @directive[:id]} %>
+      <span id="content">
+          <b>Signers</b>:(<% if directive.signers.include?(current_user) && current_user.type == "Delegate" %>
+              <%= link_to "unsign", resolution_signings_destroy_path(:directive_id => directive.id), :method => :delete %>
       <% elsif !directive.signers.include?(current_user) && current_user.type == "Delegate" %>
-          <%= render :partial => "resolution_signings/sign", :locals => {directive_id: @directive[:id]} %>
+              <%= link_to "sign", resolution_signings_create_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>
 
-          </div>
-      <% else %>
-          <b>Signers</b>:
+      <% end %> ):
+
           <% directive.signers.each do |sponsor| %>
-              <%= sponsor.position %>
+              <%= sponsor.position %>,
           <% end %>
+        </span>
       <% end %>
-    <% end %>
 
-  </span>
-  <span class="content">
-    <b>Posted: </b>
-    <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)'), :format => :short %>
-  </span>
-  <span class="content">
+
+      <span class="content">
+        <b>Posted: </b>
+        <%= I18n.l directive.created_at.in_time_zone('Eastern Time (US & Canada)'), :format => :short %>
+      </span>
+
+
+
   <% if current_user[:type] == "Crisis" %>
     <span class="content">
       <b>Tags: </b>
@@ -84,14 +83,19 @@
                   :target => '_blank'%>
     </span>
   <% end %>
+  <span class="content">
     <b>Title:</b>
     <%= directive.title %>
   </span>
+
+
+
   <span class="content">
     <b>Content:</b> <br>
     <%= render inline: directive.content %>
     <%= image_tag directive.picture.url if directive.picture? %>
   </span>
+
   <% if current_user.type == "Delegate" %>
   <span class="content">
     <b>Avaliable Actions:</b>
@@ -130,10 +134,14 @@
     <% end %>
 
   </span>
+
+
   <% end %>
+
   <span class="content">
   <b>Amendaments:</b><br><br>
     <%= comments_tree_for directive.comments.hash_tree %>
+  </span>
   </span>
 </li>
 <hr style="height: 5px; border: 0px solid black; border-top-width: 1px;"/>

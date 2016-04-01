@@ -64,12 +64,15 @@
   </span>
   <span class="content">
     <br>
-    <b>Replies </b> (<%= link_to "new reply",
-                :controller => "comments",
+    <b>Replies </b><% if !directive.comments.any? %>
+        (<%= link_to "new reply",
+                {:controller => "comments",
                 :action => "new",
                 :function => "Crisis Replies",
-                :directive_id => directive.id
-                 %>):
+                :directive_id => directive.id},
+                :target => "_blank"
+                 %>)
+        <% end %>:
     <%= comments_tree_for directive.comments.hash_tree %>
   </span>
 </li>

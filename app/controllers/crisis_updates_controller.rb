@@ -19,9 +19,10 @@ class CrisisUpdatesController < DirectivesController
   def update
     @directive = Directive.find_by(id: params[:id])
     if @directive.update_attributes(directive_params)
-      redirect_to root_url
+      redirect_to crisis_updates_path
     else
       flash[:error] = "Wrong"
+      redirect_to request.referrer
     end
   end
 
@@ -40,6 +41,6 @@ class CrisisUpdatesController < DirectivesController
 
   private
     def directive_params
-      params.require(:directive).permit(:content, :picture, :title, :type, :passed, :public, :status, :editable, :claim, :quality)
+      params.require(:crisis_update).permit(:content, :picture, :title, :type, :passed, :public, :status, :editable, :claim, :quality)
     end
 end

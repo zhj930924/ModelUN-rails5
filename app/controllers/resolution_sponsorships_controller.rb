@@ -9,11 +9,7 @@ class ResolutionSponsorshipsController < ApplicationController
     end
     
     def destroy
-        if params[:user_id] != nil
-            user_id = params[:user_id]
-        else
-          user_id = [:resolution_sponsorship][:user_id]
-        end
+        user_id = current_user.id
         ResolutionSponsorship.find_by(directive_id: params[:directive_id], user_id: user_id).destroy
         directive = Directive.find_by(id: params[:directive_id])
         if directive.requestors.include?(current_user)

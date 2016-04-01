@@ -50,9 +50,13 @@ Rails.application.routes.draw do
   get "documents" => 'static_pages#documents'
   get 'static_pages/download' => 'static_pages#download'
   get "resolution_management" => 'resolutions#resolution_management'
+  get "resolution_requests" => 'resolution_requests#create'
+  get "resolution_signings_create" => 'resolution_signings#create'
+  delete 'resolution_signings_destroy' => 'resolution_signings#destroy'
   delete 'resolution_signings' => 'resolution_signings#destroy'
   delete 'directives_tags' => 'directives_tags#destroy'
-
+  delete 'resolution_requests' => 'resolution_requests#destroy'
+  delete 'resolution_sponsorships' => 'resolution_sponsorships#destroy'
 
 
 

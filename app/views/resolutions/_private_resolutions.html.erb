@@ -20,17 +20,15 @@
     <br>
 
     <% unless directive.creators.include?(current_user) %>
-  <div id="sponsor_form">
-    <% if directive.sponsors.include?(current_user) %>
-        <%= render :partial => "resolution_sponsorships/unsponsor", :locals => {directive_id: directive[:id]} %>
-  </div>
-    <% else %>
-      <b>Sponsors</b>:
+  <span id="content">
+    <b>Sponsors</b>:<% if directive.sponsors.include?(current_user) %>(<%= link_to "unsponsor", resolution_sponsorships_path(:directive_id => directive.id), :method => :delete  %>)
+    <% end %>
+
         <% directive.sponsors.each do |sponsor| %>
           <%= sponsor.position %>
         <% end %>
         <br>
-    <% end %>
+  </span>
     <% end %>
   <% if directive.creators.include?(current_user) %>
   <span class="content">
@@ -43,19 +41,19 @@
   <% end %>
   </span>
     <% unless directive.creators.include?(current_user) %>
-  <div id="follow_form">
-    <% if directive.signers.include?(current_user) %>
-        <%= render :partial => "resolution_signings/unsign", :locals => {directive_id: directive[:id]} %>
-    <% elsif !directive.signers.include?(current_user) %>
-        <%= render :partial => "resolution_signings/sign", :locals => {directive_id: directive[:id]} %>
-    <% end %>
-  </div>
-    <% else %>
-      <b>Signers</b>:
+      <span id="content">
+      <b>Signers</b>:(<% if directive.signers.include?(current_user) && current_user.type == "Delegate" %>
+              <%= link_to "unsign", resolution_signings_destroy_path(:directive_id => directive.id), :method => :delete %>
+      <% elsif !directive.signers.include?(current_user) && current_user.type == "Delegate" %>
+              <%= link_to "sign", resolution_signings_create_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>
+
+      <% end %> ):
+
         <% directive.signers.each do |sponsor| %>
-          <%= sponsor.position %>
-        <% end %>
-    <% end %>
+              <%= sponsor.position %>,
+          <% end %>
+        </span>
+      <% end %>
   </span>
   <span class= "content">
     <b>Posted: </b>

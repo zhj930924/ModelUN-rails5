@@ -1,5 +1,4 @@
 <% provide(:title, 'All users') %>
-<meta http-equiv="refresh" content="60" />
 <div class="row">
   <aside class="col-md-3">
     <section class="user_info">
@@ -49,7 +48,9 @@
     <% elsif current_user.position == "Environment" %>
         <iframe width = "800" height = "500" src="https://docs.google.com/spreadsheets/d/1-YHaCaB5pCWkeTR3Oy2TXiSvzz2STNxSbuu6_-N2lAY/pubhtml?gid=2121938595&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
     <% elsif current_user.position == "Premier" %>
-        <iframe width = "800" height = "500" src="https://docs.google.com/spreadsheets/d/1-YHaCaB5pCWkeTR3Oy2TXiSvzz2STNxSbuu6_-N2lAY/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+        <iframe width = "800" height = "500" src="https://docs.google.com/spreadsheets/d/1-YHaCaB5pCWkeTR3Oy2TXiSvzz2STNxSbuu6_-N2lAY/pubhtml?gid=1060579457&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+    <% elsif current_user.position == "Economy" %>
+        <iframe width = "800" height = "500" src="https://docs.google.com/spreadsheets/d/1-YHaCaB5pCWkeTR3Oy2TXiSvzz2STNxSbuu6_-N2lAY/pubhtml?gid=1684839005&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
     <% end %>
 
   <% end %>
