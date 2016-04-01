@@ -22,13 +22,13 @@
 
     <% unless directive.creators.include?(current_user) %>
         <div id="content">
-          <b>Sponsors</b>(<% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= link_to "unrequest", resolution_requests_path(:directive_id => directive.id), :method => :delete %>
+          <b>Sponsors</b><% if directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
+              (<%= link_to "unrequest", resolution_requests_path(:directive_id => directive.id), :method => :delete %>)
           <% elsif !directive.requestors.include?(current_user) && !directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= link_to "request", resolution_requests_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>
+              (<%= link_to "request", resolution_requests_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>)
           <% elsif directive.sponsors.include?(current_user) && current_user.type == "Delegate" %>
-              <%= link_to "unsponsor", resolution_sponsorships_path(:directive_id => directive.id), :method => :delete  %>
-          <% end %>):
+              (<%= link_to "unsponsor", resolution_sponsorships_path(:directive_id => directive.id), :method => :delete  %>)
+          <% end %>:
           <% directive.sponsors.each do |sponsor| %>
               <%= sponsor.position %>,
           <% end %>
@@ -49,12 +49,12 @@
 
     <% unless directive.creators.include?(current_user) %>
       <span id="content">
-          <b>Signers</b>:(<% if directive.signers.include?(current_user) && current_user.type == "Delegate" %>
-              <%= link_to "unsign", resolution_signings_destroy_path(:directive_id => directive.id), :method => :delete %>
+          <b>Signers</b>:<% if directive.signers.include?(current_user) && current_user.type == "Delegate" %>
+              (<%= link_to "unsign", resolution_signings_destroy_path(:directive_id => directive.id), :method => :delete %>)
       <% elsif !directive.signers.include?(current_user) && current_user.type == "Delegate" %>
-              <%= link_to "sign", resolution_signings_create_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>
+              (<%= link_to "sign", resolution_signings_create_path(:html_options => {:method => :post}, :directive_id => directive.id)  %>)
 
-      <% end %> ):
+      <% end %>:
 
           <% directive.signers.each do |sponsor| %>
               <%= sponsor.position %>,
