@@ -3,27 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7540f598-05a8-46ae-ad3e-95b36401f547" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/crisis_updates_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/crisis_updates_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/resolution_requests_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/resolution_requests_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/resolution_signings_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/resolution_signings_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/resolution_sponsorships_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/resolution_sponsorships_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/comments/_comment.html.erb" afterPath="$PROJECT_DIR$/app/views/comments/_comment.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/comments/new.html.erb" afterPath="$PROJECT_DIR$/app/views/comments/new.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/crisis_updates/crisis_updates.html.erb" afterPath="$PROJECT_DIR$/app/views/crisis_updates/crisis_updates.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/personal_directives/_personal_directives.html.erb" afterPath="$PROJECT_DIR$/app/views/personal_directives/_personal_directives.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/personal_directives/index.erb" afterPath="$PROJECT_DIR$/app/views/personal_directives/index.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolution_requests/_request.html.erb" afterPath="$PROJECT_DIR$/app/views/resolution_requests/_request.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolution_requests/_unrequest.html.erb" afterPath="$PROJECT_DIR$/app/views/resolution_requests/_unrequest.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolution_signings/_sign.html.erb" afterPath="$PROJECT_DIR$/app/views/resolution_signings/_sign.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolution_signings/_unsign.html.erb" afterPath="$PROJECT_DIR$/app/views/resolution_signings/_unsign.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolutions/_private_resolutions.html.erb" afterPath="$PROJECT_DIR$/app/views/resolutions/_private_resolutions.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb" afterPath="$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolutions/private_resolutions.html.erb" afterPath="$PROJECT_DIR$/app/views/resolutions/private_resolutions.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/resolutions/public_resolutions.html.erb" afterPath="$PROJECT_DIR$/app/views/resolutions/public_resolutions.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/documents.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/documents.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" afterPath="$PROJECT_DIR$/app/views/static_pages/home.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
     </list>
     <ignored path="modelun.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,8 +32,18 @@
       <file leaf-file-name="_public_resolutions.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state vertical-scroll-proportion="56.041668">
+              <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="comments_controller.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/controllers/comments_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="3.4615386">
+              <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -70,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_private_resolutions.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="_private_resolutions.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/resolutions/_private_resolutions.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6164383">
+            <state vertical-scroll-proportion="-9.375">
               <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
               <folding />
             </state>
@@ -175,9 +164,9 @@
         <option value="$PROJECT_DIR$/app/views/resolutions/resolution_management.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/resolution_sponsorships_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/resolution_signings_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/views/resolutions/_private_resolutions.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb" />
       </list>
     </option>
   </component>
@@ -1300,7 +1289,19 @@
       <option name="project" value="LOCAL" />
       <updated>1459459009469</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Fixing Heroku Deployment">
+      <created>1459535368744</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1459535368744</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Fixing Heroku Deployment">
+      <created>1459535641489</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1459535641489</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1314,18 +1315,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="3" y="28" width="1280" height="721" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33360258" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32671756" sideWeight="0.49676898" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3284553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36335877" sideWeight="0.2197092" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8778626" sideWeight="0.2197092" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30992368" sideWeight="0.49030694" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32804233" sideWeight="0.4969651" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36335877" sideWeight="0.7802908" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.8778626" sideWeight="0.7802908" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1379,14 +1380,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/tags/new.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/static_pages_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6028708">
@@ -1763,14 +1756,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/routes.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1781,8 +1766,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/resolutions/_private_resolutions.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6164383">
+        <state vertical-scroll-proportion="-9.375">
           <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/resolutions/_public_resolutions.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="56.041668">
+          <caret line="38" column="44" selection-start-line="38" selection-start-column="44" selection-end-line="38" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/comments_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.4615386">
+          <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding />
         </state>
       </provider>
