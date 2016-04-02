@@ -8,6 +8,11 @@ class PersonalDirectivesController < DirectivesController
       pd = current_user.personal_directives.build(content: params[:personal_directive][:content],
                                               title: params[:personal_directive][:title])
       if pd.save
+        if params[:other_authors]
+          params[:other_authors].each do |person|
+            IssueDirective.create(user_id: person, directive_id: pd.id)
+          end
+        end
         flash[:success] = "Directive created!"
         current_user.issue_directives.create(directive_id: pd.id)
         redirect_to personal_directives_path

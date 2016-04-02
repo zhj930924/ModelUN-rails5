@@ -1,10 +1,11 @@
 <li id="directive-<%= directive.id %>">
   <span class="content">
-    <b>Author: </b>
+    <b>Authors: </b>
     <% directive.users.each do |user| %>
-    <%= user.position %>
+    <%= user.position %>,
     <% end %>
   </span>
+  <span class="content" >
   <% if current_user.type == "Crisis" %>
     <% if !directive.claim %>
     <b>Unclaimed(<%= link_to "claim", directive_path(directive, :directive => {:claim => true}),
@@ -13,7 +14,7 @@
     <% else %>
     <b>Claimed</b>
     <% end %>
-
+  </span>
     <span class="content">
       <% if !directive.quality.nil? %>
         <b>Quality Rating: </b>

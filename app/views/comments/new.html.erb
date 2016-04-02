@@ -4,6 +4,10 @@
   <%= render 'comment', comment: @comment.parent, from_reply_form: true %>
 <% elsif params[:directive_id] %>
     <% directive = Directive.find_by(id: params[:directive_id]) %>
+    <b>Author:</b>
+    <% directive.users.each do |n| %>
+        <%= n.position %>,
+    <% end %><br>
     <b>Title: </b>
     <%= directive.title %><br>
     <b>Content: </b><br>

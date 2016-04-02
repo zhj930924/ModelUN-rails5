@@ -12,6 +12,12 @@
           </ul>
         </div>
     <% end %>
+
+    <div class="form-group">
+      <b>Co-Authors</b>
+      <%= select_tag(:other_authors, options_for_select(Delegate.where(committee: current_user.committee).where.not(id: current_user.id).collect {|p| [ p.position, p.id ] }), { multiple: true , class: "chosen-select form-control" })%>
+    </div>
+
     <div class="field">
       <%= f.label :title %>
       <%= f.text_field :title %>
