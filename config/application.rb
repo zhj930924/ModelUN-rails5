@@ -15,7 +15,7 @@ end
 
 module Emodelun
   class Application < Rails::Application
-    
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -30,6 +30,7 @@ module Emodelun
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     # config.time_zone = 'London'
+    ActiveSupport.halt_callback_chains_on_return_false = false
 
     config.action_view.embed_authenticity_token_in_remote_forms = true
   end

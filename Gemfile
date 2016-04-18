@@ -6,44 +6,49 @@ gem 'rails', '= 5.0.0.beta3'
 # gem 'rails',        '4.2.2'
 
 # Rails 5 specific
+gem 'activesupport', '~> 5.0.0.beta3'
 gem 'activemodel', '~> 5.0.0.beta3'
+gem 'tzinfo', '~> 1.2', '>= 1.2.2'
+gem 'concurrent-ruby', '~> 1.0', '>= 1.0.1'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails', '4.0.3'
+gem 'coffee-rails'
+gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder',     '2.2.3'
+gem 'jbuilder'
 gem 'puma'
 gem 'bootstrap-sass'
 gem 'sass-rails'
+gem 'compass-rails'
 gem 'rack-cors', :require => 'rack/cors'
-
+gem 'railties', '~> 5.0.0.beta3'
 # Old gems
 gem 'gon'
 gem 'filterrific'
 gem 'chosen-rails'
 gem 'mailboxer'
-gem 'devise', '~> 3.5', '>= 3.5.6'
-gem 'closure_tree', '~> 5.2.0'
-gem 'bcrypt',       '~> 3.1.2'
-gem 'faker',        '1.4.2'
+gem 'devise', '~> 4.0'
+gem 'closure_tree'
+gem 'bcrypt'
+gem 'faker'
 gem "carrierwave"
-gem 'mini_magick',  '3.8.0'
+gem 'mini_magick'
 gem 'tinymce-rails'
-gem 'fog',          '1.36.0'
-gem 'will_paginate','3.0.7'
-gem 'bootstrap-will_paginate', '0.0.10'
-gem 'sdoc',         '0.4.0', group: :doc
+gem 'fog'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'sdoc', group: :doc
 gem 'omniauth-google-oauth2'
 gem 'figaro'
 gem 'omniauth'
-gem 'i18n-timezones', '~> 1.3', '>= 1.3.5'
-
+gem 'i18n', '~> 0.7.0'
+gem 'i18n-timezones'
+gem 'minitest', '~> 5.8', '>= 5.8.4'
 
 group :development, :test do
-  gem 'sqlite3',     '1.3.9'
-  gem 'byebug',      '3.4.0'
+  gem 'sqlite3'
+  gem 'byebug'
   gem 'web-console'
-  gem 'spring',      '1.1.3'
+  gem 'spring'
   gem "rails-erd"
   gem 'better_errors'
   gem 'binding_of_caller'
@@ -58,15 +63,15 @@ group :development, :test do
 end
 
 group :test do
-  gem 'minitest-reporters', '1.0.5'
-  gem 'mini_backtrace',     '0.1.3'
-  gem 'guard-minitest',     '2.3.1'
+  gem 'minitest-reporters'
+  gem 'mini_backtrace'
+  gem 'guard-minitest'
   gem 'shoulda-matchers'
 end
 
 group :production do
-  gem 'pg',             '0.17.1'
-  gem 'rails_12factor', '0.0.2'
+  gem 'pg'
+  gem 'rails_12factor'
   gem 'google-analytics-rails'
 
 end
